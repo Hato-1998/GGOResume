@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>포트폴리오 · 곽근오</title>
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <script>
+    (function() {
+      const THEME_KEY = 'theme';
+      const DARK_THEME = 'dark';
+      const LIGHT_THEME = 'light';
+      const stored = localStorage.getItem(THEME_KEY);
+      const theme = stored || DARK_THEME;
+      if (theme === LIGHT_THEME) {
+        document.documentElement.removeAttribute('data-theme');
+      } else {
+        document.documentElement.setAttribute('data-theme', DARK_THEME);
+      }
+    })();
+  </script>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="brand">곽근오 · Game Programmer</a>
+    <button class="theme-toggle" type="button" aria-label="테마 전환">
+      <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+      </svg>
+      <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
+  </header>
+
+  <main>
+    <div class="breadcrumb">
+      <a href="index.html">← 메인으로</a>
+    </div>
+
+    <article class="project-hero">
+      <h1>포트폴리오</h1>
+      <div class="project-tagline">회사별 실무 프로젝트와 사이드 프로젝트</div>
+    </article>
+
+    <section class="portfolio-group">
+      <h2 class="portfolio-group-title">콩스튜디오 · 실무 경력</h2>
+      <div class="projects-grid">
+        <a href="projects/klevathes-gimmick.html" class="project-card">
+          <img src="assets/images/placeholders/klevathes.svg" alt="클레바테스 콜라보 기믹" class="project-image">
+          <h3>클레바테스 콜라보 기믹</h3>
+          <div class="tagline">그림자 분신 퍼즐 &amp; 텔레포트</div>
+          <div class="project-meta">
+            <span>Unity</span>
+            <span>C# / Lua</span>
+          </div>
+          <p class="project-description">FSM 기반 상태 관리, Lua 데이터 주도 설계, 코루틴 0.6초 동기화 연출</p>
+        </a>
+
+        <a href="projects/tunnel-run.html" class="project-card">
+          <img src="assets/images/placeholders/tunnel-run.svg" alt="터널 런 미니게임" class="project-image">
+          <h3>터널 런 미니게임</h3>
+          <div class="tagline">3D 무한 러너 &amp; QTE</div>
+          <div class="project-meta">
+            <span>Unity</span>
+            <span>C#</span>
+          </div>
+          <p class="project-description">MVC 아키텍처, RingObjectPool, Quaternion.Slerp 기반 동적 공간 제어</p>
+        </a>
+
+        <a href="projects/fx-preview-browser.html" class="project-card">
+          <img src="assets/images/placeholders/fx-preview.svg" alt="FX Preview Browser" class="project-image">
+          <h3>FX Preview Browser</h3>
+          <div class="tagline">사내 에디터 툴</div>
+          <div class="project-meta">
+            <span>Unity Editor</span>
+            <span>C# Reflection</span>
+          </div>
+          <p class="project-description">PreviewRenderUtility, 에디터 시뮬레이션 수동 동기화, Reflection 기반 누수 방지</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="portfolio-group">
+      <h2 class="portfolio-group-title">사이드 프로젝트</h2>
+      <div class="projects-grid">
+        <div class="project-card project-card-static">
+          <img src="assets/images/placeholders/eldorado.svg" alt="Eldorado 프로젝트" class="project-image">
+          <h3>Eldorado</h3>
+          <div class="tagline">쿼터뷰 RPG</div>
+          <div class="project-meta">
+            <span>2022.06</span>
+            <span>KGCA</span>
+            <span>UE5</span>
+          </div>
+          <p class="project-description">3주, 5인 프로그래머 팀. Map / 서브 몬스터 / 이펙트 담당.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="breadcrumb breadcrumb-bottom">
+      <a href="index.html">← 메인으로</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 곽근오. 마지막 업데이트: 2026.04.</p>
+  </footer>
+
+  <script src="assets/js/theme-toggle.js"></script>
+</body>
+</html>
