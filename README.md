@@ -49,6 +49,7 @@ GGOResume/
 └── projects/
     ├── klevathes-gimmick.html      # 클레바테스 콜라보 기믹 상세 페이지
     ├── tunnel-run.html             # 터널 런 미니게임 상세 페이지
+    ├── ue5-topdown-rpg.html        # UE5 Top-Down RPG 상세 페이지
     └── fx-preview-browser.html     # FX Preview Browser 상세 페이지
 ```
 
@@ -59,6 +60,7 @@ GGOResume/
 - `klevathes.svg` - 클레바테스 콜라보 기믹
 - `tunnel-run.svg` - 터널 런 미니게임
 - `fx-preview.svg` - FX Preview Browser
+- `ue5-topdown-rpg.svg` - UE5 Top-Down RPG (Aura)
 - `eldorado.svg` - Eldorado 프로젝트
 - `hear.svg` - Hear 프로젝트
 

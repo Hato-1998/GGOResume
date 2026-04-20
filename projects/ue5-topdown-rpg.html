@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FX Preview Browser · 곽근오 포트폴리오</title>
+  <title>UE5 Top-Down RPG · 곽근오 포트폴리오</title>
   <link rel="stylesheet" href="../assets/css/tokens.css">
   <link rel="stylesheet" href="../assets/css/main.css">
   <script>
@@ -41,15 +41,15 @@
     </div>
 
     <article class="project-hero">
-      <h1>FX Preview Browser</h1>
-      <div class="project-tagline">사내 에디터 툴</div>
+      <h1>UE5 Top-Down RPG</h1>
+      <div class="project-tagline">GAS 기반 액션 RPG</div>
     </article>
 
     <section class="project-overview">
       <h2>개요</h2>
       <p>
-        비개발 직군(기획, 아트팀)을 위해 개발한 에디터 툴 <br><br>
-        기획과 아트팀의 작업 효율을 위해 수백 개의 게임 이펙트를 깔끔한 인터페이스에서 빠르게 검색하고 미리보기할 수 있도록 AI를 이용해 설계
+        GAS(Gameplay Ability System) 기반 AAA급 코드 아키텍처 학습이 목표인 Top-Down RPG <br><br>
+        개인 학습 프로젝트로, GAS의 핵심 추상(Attribute Set, Gameplay Effect, Ability Task)을 직접 구현하며 멀티플레이 복제·UI MVVM 패턴까지 통합 학습
       </p>
     </section>
 
@@ -57,34 +57,32 @@
       <h2>핵심 기여</h2>
 
       <article class="contribution-section">
-        <h3>기획/아트 파이프라인 개선을 위한 에디터 툴 개발</h3>
+        <h3>GAS 기반 어트리뷰트 & 이펙트 시스템</h3>
         <p>
-          수백 개의 이펙트 프리팹을 에디터 창에서 즉시 렌더링하고 확인할 수 있는 전용 FX 뷰어를 개발하여 비개발 직군의 작업 효율을 향상
+          Custom Ability System Component와 Attribute Set 구현으로 Primary(Strength·Intelligence·Resilience·Vigor)와 Secondary(Armor·Crit·Regen) 복제 처리, 화염·번개 등 피해 타입별 저항·디버프 구현
         </p>
         <p class="aux">
-          이전에는 이펙트 확인을 위해 하나하나 확인하는 고충이 있다 확인받아 개인적으로 AI를 활용하여 구조를 설계 작업하였습니다,
-          이 툴 덕분에 목록 검색으로 빠르게 검토할 수 있게 되었습니다.
+          Gameplay Effect와 Attribute Set의 상호작용을 학습하여 서버-클라이언트 복제 환경에서 일관된 게임 상태를 유지하는 방식을 체득했습니다.
         </p>
       </article>
 
       <article class="contribution-section">
-        <h3>PreviewRenderUtility 기반 독립 렌더링 환경 구축</h3>
+        <h3>스펠 & 패시브 어빌리티 시스템</h3>
         <p>
-          에디터 윈도우 내부에 가상 카메라와 조명을 세팅하고 마우스 입력(Pan, Orbit, Zoom) 처리 로직을 구현하여 직관적인 UX를 제공
+          FireBolt, Electrocute, Arcane Shards, FireBlast 등 액티브/패시브 스펠을 Ability Task 기반으로 모듈화하고, 마나 소모·쿨다운·런타임 단축키 배정 기능 구현
         </p>
         <p class="aux">
-          PreviewRenderUtility를 통해 별도의 Preview 창을 만들어 작업하였습니다.
+          복잡한 스펠 시전 로직을 Async Task와 조합하여 분리된 책임으로 설계했습니다.
         </p>
       </article>
 
       <article class="contribution-section">
-        <h3>에디터 환경 내 시뮬레이션 수동 동기화</h3>
+        <h3>Behavior Tree + EQS 기반 적 AI</h3>
         <p>
-          플레이 모드가 아닌 상태에서도 ParticleSystem.Simulate와 CustomAnimator에 deltaTime을 주입하여 인게임과 동일한 시각적 피드백을 구현
+          Warrior(근거리), Ranger(원거리), Elementalist(마법) 타입별 행동 분기와 스펠 시전·미니언 소환 로직을 구현, EQS로 전술적 위치 질의
         </p>
         <p class="aux">
-          이펙트팀에서 추가적인 요청이 들어와 에디터의 CustomAnimator의 시뮬레이션을 위해 
-          정지 상태에서도 파티클 시뮬레이션을 수동으로 진행시켜 인게임과 정확히 동일한 비주얼을 미리볼 수 있게 했습니다.
+          Behavior Tree와 Environment Query System으로 적 의사결정을 데이터 주도적으로 설계했습니다.
         </p>
       </article>
     </section>
@@ -92,11 +90,11 @@
     <section>
       <h2>사용 기술</h2>
       <div class="tech-used">
-        <span class="tech-chip">Unity Editor</span>
-        <span class="tech-chip">C#</span>
-        <span class="tech-chip">Reflection</span>
-        <span class="tech-chip">PreviewRenderUtility</span>
-        <span class="tech-chip">Editor Window</span>
+        <span class="tech-chip">Unreal Engine 5.7</span>
+        <span class="tech-chip">C++</span>
+        <span class="tech-chip">GAS</span>
+        <span class="tech-chip">Behavior Tree</span>
+        <span class="tech-chip">MVVM</span>
       </div>
     </section>
 

@@ -54,8 +54,8 @@
         <dt>부서</dt>
         <dd>Client / Quest</dd>
 
-        <dt>직책 &amp; 직무</dt>
-        <dd>사원 · Quest Client</dd>
+        <dt>직무</dt>
+        <dd>Software Engineer</dd>
 
         <dt>기간</dt>
         <dd>2022.10 ~ 재직중 (3년 7개월)</dd>
@@ -68,47 +68,119 @@
           사내 에디터 툴 개발
         </dd>
 
-        <dt>참여 프로젝트</dt>
+        <dt>참여 내역</dt>
         <dd>
-          클레바테스 콜라보 기믹<br>
-          터널 런 미니게임<br>
-          FX Preview Browser
+          월드 15 ~ 23 개발 참여 <br>
+          악몽 14 ~ 16 개발 참여<br>
+          2022년 이후 단편집 및 승급, 메모리얼 등 사이드 스토리 개발 참여
         </dd>
       </dl>
     </section>
 
     <section class="key-contributions">
       <h2>프로젝트 상세</h2>
+      <article class="project-hero">
+        <h1>[GDTS] 콜라보 이벤트 기믹 작업</h1>
+        <h3><a href="projects/Collabo-Stage-Gimmick.html">세부 사항</a></h3>
+      </article>
+      <section class="project-overview">
+        <div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
+          <div style="flex:0 0 360px; width:360px;">
+            <iframe
+                    id="overview-video"
+                    width="100%"
+                    style="aspect-ratio:16 / 9; border:0; border-radius:12px;"
+                    src="https://www.youtube-nocookie.com/embed/u8asSqNxdyk?enablejsapi=1&start=826"
+                    title="유튜브 영상"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+            </iframe>
+          </div>
 
-      <article class="contribution-section">
-        <h3><a href="projects/klevathes-gimmick.html">클레바테스 콜라보 기믹 (그림자 분신 퍼즐 &amp; 텔레포트) →</a></h3>
-        <ul class="contribution-list">
-          <li><strong>FSM 기반의 유연한 객체 상태 제어:</strong> 스포너(Spawner)와 그림자 분신 객체의 생애 주기(대기, 캐스팅, 스폰, 밀림 등)를 상태 머신 패턴으로 설계하여 결합도를 낮추고 로직 확장을 용이하게 함.</li>
-          <li><strong>데이터 주도 설계(Data-Driven Design) 도입:</strong> 기믹의 일차별 스폰 개수, 지속 시간 등의 핵심 기획 변수를 Lua 데이터 파일로 분리하여 기획자 친화적인 밸런싱 환경 구축.</li>
-          <li><strong>EDA(Event-Driven Architecture) 및 메모리 관리:</strong> C# 메시지 시스템을 활용해 이벤트를 구독/해제(Subscribe/Unsubscribe)하는 방식으로 설계하고, 객체 해제 시 누수(Leak)가 발생하지 않도록 메모리를 안전하게 관리함.</li>
-          <li><strong>비동기 연출 동기화:</strong> 플레이어와 그림자의 위치 전환 시 카메라 이동, 스케일 변화, 캐릭터 틴트 효과 등을 코루틴으로 0.6초 내에 오차 없이 동기화하여 자연스러운 텔레포트 연출 구현.</li>
-        </ul>
+          <div style="flex:1; min-width:280px;">
+            <p>
+              스테이지 전체에서 사용하는 기믹으로 퀘스트의 진행도에 따라 기능들이 해금되는 구조<br><br>
+              스테이지 진행에서 완전 별도로 진행되는 기믹인 만큼, 플레이어가 퀘스트를 진행하거나 연출을 보는 등의 행동에서
+              기믹의 생성/제거가 용이했어야 했음<br><br>
+              진행도 마다 기믹의 기능이 추가되었기 때문에 기획자가 각 진행도에서 테스트 해볼 수 있도록 데이터를 분리해 관리하도록 작업
+            </p>
+          </div>
+        </div>
+
+        <script src="https://www.youtube.com/iframe_api"></script>
+        <script>
+          let overviewPlayer;
+
+          function onYouTubeIframeAPIReady() {
+            overviewPlayer = new YT.Player('overview-video', {
+              events: {
+                onReady: function (event) {
+                  event.target.setVolume(25);
+                }
+              }
+            });
+          }
+        </script>
+      </section>
+      
+      <hr style="border:0; border-top:1px solid rgba(255,255,255,0.12); margin:16px 0;">
+
+      <article class="project-hero">
+        <h1>[GDTS] 월드 20 미니게임</h1>
+        <h3><a href="projects/tunnel-run.html">세부 사항</a></h3>
+      </article>
+      <section class="project-overview">
+        <div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
+          <div style="flex:0 0 360px; width:360px;">
+            <iframe
+                    id="overview-video"
+                    width="100%"
+                    style="aspect-ratio:16 / 9; border:0; border-radius:12px;"
+                    src="https://www.youtube-nocookie.com/embed/YUv4AB_B2E8?enablejsapi=1&start=109"
+                    title="유튜브 영상"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+            </iframe>
+          </div>
+
+          <div style="flex:1; min-width:280px;">
+            <p>
+              오브젝트가 무한히 연결되어야 하는 구조적 특징으로 오브젝트 풀링이 중요 과제<br><br>
+              스테이지 구조가 기획자의 의도에 맞게 지속적으로 밸런싱 수정이 필요했었기에 데이터 파일로 별도 분리<br><br>
+            </p>
+          </div>
+        </div>
+
+        <script src="https://www.youtube.com/iframe_api"></script>
+        <script>
+          let overviewPlayer;
+
+          function onYouTubeIframeAPIReady() {
+            overviewPlayer = new YT.Player('overview-video', {
+              events: {
+                onReady: function (event) {
+                  event.target.setVolume(25);
+                }
+              }
+            });
+          }
+        </script>
+      </section>
+
+      <hr style="border:0; border-top:1px solid rgba(255,255,255,0.12); margin:16px 0;">
+
+      <article class="project-hero">
+        <h1>FX Preview Tool</h1>
+        <h3><a href="projects/fx-preview-browser.html">세부 사항</a></h3>
       </article>
 
-      <article class="contribution-section">
-        <h3><a href="projects/tunnel-run.html">터널 런(Tunnel Run) 미니게임 (3D 무한 러너 &amp; QTE) →</a></h3>
-        <ul class="contribution-list">
-          <li><strong>MVC 유사 아키텍처 및 시스템 모듈화:</strong> 메인 시스템을 중심으로 Player, Scroller, Camera 등 도메인별 컨트롤러를 완벽히 분리하여 미니게임의 응집도를 높이고 코드 유지보수성을 극대화함.</li>
-          <li><strong>오브젝트 풀링(Pooling) 및 큐(Queue) 기반 메모리 최적화:</strong> 무한히 생성되는 터널 타일로 인한 가비지 컬렉션(GC) 스파이크를 방지하기 위해 RingObjectPool을 구현하고, 커스텀 큐를 통해 카메라 밖 타일을 O(1)로 재사용하도록 최적화함.</li>
-          <li><strong>3D 수학 기반의 동적 공간 제어:</strong> Quaternion.Slerp를 활용해 플레이어 조작에 따른 터널과 카메라의 45도 동기화 회전을 구현하고, Mathf.Sin 삼각함수를 통해 보스의 자연스러운 상하 호버링 패턴을 개발함.</li>
-          <li><strong>복잡한 QTE 시네마틱 연출 시퀀싱:</strong> 코루틴 병렬 처리(wait_all_lua)를 통해 타일 파괴, 슬로우 모션, 카메라 FOV 제어, 스파인 애니메이션 전환 등 다중 연출 요소를 프레임 드랍 없이 제어함.</li>
+      <section class="project-overview">
+        <ul style="margin-top: 0; padding-left: 40px;">
+          <li>비개발 직군(기획, 아트팀)을 위해 개발한 에디터 툴</li>
+          <li>기획과 아트팀의 작업 효율을 위해 수백 개의 게임 이펙트를 깔끔한 인터페이스에서 빠르게 검색하고 미리보기할 수 있도록 AI를 이용해 설계</li>
         </ul>
-      </article>
-
-      <article class="contribution-section">
-        <h3><a href="projects/fx-preview-browser.html">FX Preview Browser (사내 에디터 툴) →</a></h3>
-        <ul class="contribution-list">
-          <li><strong>기획/아트 파이프라인 개선을 위한 에디터 툴 개발:</strong> 씬(Scene) 오염 없이 수백 개의 이펙트를 에디터 창에서 즉시 렌더링하고 확인할 수 있는 사내 전용 FX 뷰어를 개발하여 비개발 직군의 작업 효율을 대폭 향상시킴.</li>
-          <li><strong>PreviewRenderUtility 기반 독립 렌더링 환경 구축:</strong> 에디터 윈도우 내부에 가상 카메라와 조명을 세팅하고 마우스 입력(Pan, Orbit, Zoom) 처리 로직을 구현하여 직관적인 UX를 제공함.</li>
-          <li><strong>에디터 환경 내 시뮬레이션 수동 동기화:</strong> 플레이 모드가 아닌 상태에서도 ParticleSystem.Simulate와 CustomAnimator에 강제로 deltaTime을 주입하여 인게임과 동일한 시각적 피드백을 구현함.</li>
-          <li><strong>C# Reflection을 활용한 내부 변수 제어 및 릭 방지:</strong> 커스텀 애니메이터의 인스턴스 매테리얼 누수 문제를 해결하기 위해, Reflection(BindingFlags.NonPublic)을 사용해 숨겨진 private 필드에 접근, sharedMaterial을 강제 할당하여 메모리 최적화 및 렌더링 오류를 방어함.</li>
-        </ul>
-      </article>
+      </section>
+      
     </section>
 
     <div class="breadcrumb breadcrumb-bottom">

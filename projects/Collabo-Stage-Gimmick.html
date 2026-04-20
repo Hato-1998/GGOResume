@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>[GDTS] 월드 20 미니게임 · 곽근오 포트폴리오</title>
+  <title>그림자 기믹 · 곽근오 포트폴리오</title>
   <link rel="stylesheet" href="../assets/css/tokens.css">
   <link rel="stylesheet" href="../assets/css/main.css">
   <script>
@@ -41,9 +41,10 @@
     </div>
 
     <article class="project-hero">
-      <h1>[GDTS] 월드 20 미니게임</h1>
-      <div class="project-tagline">3D 무한 러너 & QTE</div>
+      <h1>[GDTS] 콜라보 이벤트 기믹 작업</h1>
+      <div class="project-tagline">그림자 분신 퍼즐 & 텔레포트</div>
     </article>
+
     <section class="project-overview">
       <h2>개요</h2>
       <div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
@@ -52,7 +53,7 @@
                   id="overview-video"
                   width="100%"
                   style="aspect-ratio:16 / 9; border:0; border-radius:12px;"
-                  src="https://www.youtube-nocookie.com/embed/YUv4AB_B2E8?enablejsapi=1&start=109"
+                  src="https://www.youtube-nocookie.com/embed/u8asSqNxdyk?enablejsapi=1&start=826"
                   title="유튜브 영상"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowfullscreen>
@@ -61,8 +62,10 @@
 
         <div style="flex:1; min-width:280px;">
           <p>
-            오브젝트가 무한히 연결되어야 하는 구조적 특징으로 오브젝트 풀링이 중요 과제<br><br>
-            스테이지 구조가 기획자의 의도에 맞게 지속적으로 밸런싱 수정이 필요했었기에 데이터 파일로 별도 분리<br><br>
+            스테이지 전체에서 사용하는 기믹으로 퀘스트의 진행도에 따라 기능들이 해금되는 구조<br><br>
+            스테이지 진행에서 완전 별도로 진행되는 기믹인 만큼, 플레이어가 퀘스트를 진행하거나 연출을 보는 등의 행동에서
+            기믹의 생성/제거가 용이했어야 했음<br><br>
+            진행도 마다 기믹의 기능이 추가되었기 때문에 기획자가 각 진행도에서 테스트 해볼 수 있도록 데이터를 분리해 관리하도록 작업
           </p>
         </div>
       </div>
@@ -87,22 +90,33 @@
       <h2>핵심 기여</h2>
 
       <article class="contribution-section">
-        <h3>시스템 모듈화</h3>
+        <h3>FSM 기반의 객체 상태 제어</h3>
         <p>
-          개발 과정에서 지속적인 게임 구조 수정이 진행되어, 이를 위해 각각의 시스템을 독립적으로 설계 최소한의 수정으로 기획 변경에 대응 및 코드 관리
+          스테이지 전체에 배치되는 스포너(Spawner)와 그림자 분신 객체의 생애 주기(대기, 캐스팅, 스폰, 밀림 등)를 상태 머신 패턴으로 설계
         </p>
         <p class="aux">
-          각 시스템이 독립적으로 동작하면서 메인 시스템을 통해서만 통신하도록 설계했습니다. 이를 통해 한 시스템의 변경이 다른 부분에 미치는 영향을 최소화 하였습니다.
+          상태 머신을 통해 각 상태에서의 동작이 명확히 분리되어 새로운 상태나 전이 규칙 추가 시 기존 코드 수정을 최소화했습니다.
         </p>
       </article>
 
       <article class="contribution-section">
-        <h3>오브젝트 풀링(Pooling) 및 큐(Queue) 기반 메모리 최적화</h3>
+        <h3>데이터 기반 설계 작업</h3>
         <p>
-          게임이 진행되는 동안 무한히 생성되는 타일로 인한 가비지 컬렉션(GC) 스파이크를 방지하기 위해 RingObjectPool을 구현하고, 커스텀 큐를 통해 카메라 밖 타일을 재사용하도록 최적화
+          기믹의 단계별 기능 확장, 지속 시간 등의 기획적으로 수정될 수 있는 변수들은 데이터 파일로 분리하여 밸런싱 및 테스트가 간편해지도록 수정.
         </p>
         <p class="aux">
-         미리 할당된 풀에서 재사용하는 방식으로 GC 발생을 최소화 하였습니다.
+          프로그래머가 코드 수정 없이 게임 밸런싱을 빠르게 반복할 수 있게 되어, 기획-프로그래밍 사이의 피드백 루프가 매우 단축되었습니다.
+        </p>
+      </article>
+
+      <article class="contribution-section">
+        <h3>메시지시스템 활용 및 메모리 관리</h3>
+        <p>
+          메시지 시스템을 활용해 이벤트를 구독/해제(Subscribe/Unsubscribe)하는 방식으로 설계
+        </p>
+        <p class="aux">
+          느슨한 결합으로 인해 각 객체가 독립적으로 동작하면서도 필요한 이벤트만 수신하도록 설계했습니다.
+          반복 생성/삭제되는 기믹 특성상 메모리 관리가 매우 중요했는데, 풀링 형식으로 작업하여 메모리 누수를 보완하였습니다
         </p>
       </article>
     </section>
@@ -112,8 +126,9 @@
       <div class="tech-used">
         <span class="tech-chip">Unity</span>
         <span class="tech-chip">C#</span>
-        <span class="tech-chip">Object Pooling</span>
-        <span class="tech-chip">QTE</span>
+        <span class="tech-chip">Lua</span>
+        <span class="tech-chip">FSM</span>
+        <span class="tech-chip">EDA</span>
       </div>
     </section>
 
