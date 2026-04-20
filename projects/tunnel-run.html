@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>터널 런 미니게임 · 곽근오 포트폴리오</title>
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script>
+    (function() {
+      const THEME_KEY = 'theme';
+      const DARK_THEME = 'dark';
+      const LIGHT_THEME = 'light';
+      const stored = localStorage.getItem(THEME_KEY);
+      const theme = stored || DARK_THEME;
+      if (theme === LIGHT_THEME) {
+        document.documentElement.removeAttribute('data-theme');
+      } else {
+        document.documentElement.setAttribute('data-theme', DARK_THEME);
+      }
+    })();
+  </script>
+</head>
+<body>
+  <header>
+    <a href="../index.html" class="brand">곽근오 · Game Programmer</a>
+    <button class="theme-toggle" type="button" aria-label="테마 전환">
+      <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+      </svg>
+      <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
+  </header>
+
+  <main>
+    <div class="breadcrumb">
+      <a href="../index.html">← 메인으로</a>
+    </div>
+
+    <article class="project-hero">
+      <h1>터널 런 미니게임</h1>
+      <div class="project-tagline">3D 무한 러너 & QTE</div>
+
+      <div class="project-meta-detail">
+        <div class="project-meta-item">
+          <div class="project-meta-label">역할</div>
+          <div>Quest Client 프로그래머</div>
+        </div>
+        <div class="project-meta-item">
+          <div class="project-meta-label">회사</div>
+          <div>콩스튜디오</div>
+        </div>
+        <div class="project-meta-item">
+          <div class="project-meta-label">엔진</div>
+          <div>Unity</div>
+        </div>
+        <div class="project-meta-item">
+          <div class="project-meta-label">기술</div>
+          <div>C#, 3D 수학</div>
+        </div>
+      </div>
+    </article>
+
+    <section class="project-overview">
+      <h2>개요</h2>
+      <p>
+        터널 런은 콩스튜디오 게임 내 주요 미니게임으로, 플레이어가 무한히 생성되는 터널을 통과하며 장애물을 피하고 보스와 대면하는 3D 액션 게임입니다. 입력 반응성이 핵심이면서도 동시에 복잡한 연출 시퀀싱을 안정적으로 관리해야 했습니다.
+      </p>
+      <p>
+        성능 최적화와 시스템 모듈화가 가장 큰 과제였습니다. 매 프레임 생성되는 객체들로 인한 가비지 컬렉션 스파이크를 해결하고, 여러 비동기 연출(QTE, 슬로우 모션, 카메라 제어)을 정확히 조율하는 것이 개발의 핵심이었습니다.
+      </p>
+    </section>
+
+    <section class="key-contributions">
+      <h2>핵심 기여</h2>
+
+      <article class="contribution-section">
+        <h3>MVC 유사 아키텍처 및 시스템 모듈화</h3>
+        <p>
+          메인 시스템을 중심으로 Player, Scroller, Camera 등 도메인별 컨트롤러를 완벽히 분리하여 미니게임의 응집도를 높이고 코드 유지보수성을 극대화함.
+        </p>
+        <p class="aux">
+          각 시스템이 독립적으로 동작하면서 메인 시스템을 통해서만 통신하도록 설계했습니다. 이를 통해 한 시스템의 변경이 다른 부분에 미치는 영향을 최소화했고, 디버깅과 새 기능 추가가 훨씬 용이해졌습니다.
+        </p>
+      </article>
+
+      <article class="contribution-section">
+        <h3>오브젝트 풀링(Pooling) 및 큐(Queue) 기반 메모리 최적화</h3>
+        <p>
+          무한히 생성되는 터널 타일로 인한 가비지 컬렉션(GC) 스파이크를 방지하기 위해 RingObjectPool을 구현하고, 커스텀 큐를 통해 카메라 밖 타일을 O(1)로 재사용하도록 최적화함.
+        </p>
+        <p class="aux">
+          매 프레임 새 객체를 할당하던 방식에서 미리 할당된 풀에서 재사용하는 방식으로 변경하여, GC 압력을 대폭 줄였습니다. 프레임 안정성이 크게 향상되어 플레이어 경험에 직결되었습니다.
+        </p>
+      </article>
+
+      <article class="contribution-section">
+        <h3>3D 수학 기반의 동적 공간 제어</h3>
+        <p>
+          Quaternion.Slerp를 활용해 플레이어 조작에 따른 터널과 카메라의 45도 동기화 회전을 구현하고, Mathf.Sin 삼각함수를 통해 보스의 자연스러운 상하 호버링 패턴을 개발함.
+        </p>
+        <p class="aux">
+          회전 보간과 삼각함수를 조합하여 기하학적으로 정확하면서도 시각적으로 자연스러운 움직임을 만들어냈습니다. 이는 미니게임의 선택감과 신뢰감을 높이는 중요한 요소였습니다.
+        </p>
+      </article>
+
+      <article class="contribution-section">
+        <h3>복잡한 QTE 시네마틱 연출 시퀀싱</h3>
+        <p>
+          코루틴 병렬 처리(wait_all_lua)를 통해 타일 파괴, 슬로우 모션, 카메라 FOV 제어, 스파인 애니메이션 전환 등 다중 연출 요소를 프레임 드랍 없이 제어함.
+        </p>
+        <p class="aux">
+          여러 애니메이션과 효과를 동시에 제어하면서도 프레임 안정성을 유지하는 것이 매우 도전적이었습니다. 병렬 코루틴 처리와 정확한 타이밍 제어로, 플레이어가 느끼는 임팩트 있는 연출을 구현했습니다.
+        </p>
+      </article>
+    </section>
+
+    <section>
+      <h2>사용 기술</h2>
+      <div class="tech-used">
+        <span class="tech-chip">Unity</span>
+        <span class="tech-chip">C#</span>
+        <span class="tech-chip">Quaternion</span>
+        <span class="tech-chip">Object Pooling</span>
+        <span class="tech-chip">Coroutine</span>
+        <span class="tech-chip">QTE</span>
+      </div>
+    </section>
+
+    <section>
+      <img src="../assets/images/placeholders/tunnel-run.svg" alt="터널 런 미니게임 스크린샷" class="project-image">
+    </section>
+
+    <div class="breadcrumb breadcrumb-bottom">
+      <a href="../index.html">← 메인으로</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 곽근오. 마지막 업데이트: 2026.04.</p>
+  </footer>
+
+  <script src="../assets/js/theme-toggle.js"></script>
+</body>
+</html>

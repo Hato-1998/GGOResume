@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>클레바테스 콜라보 기믹 · 곽근오 포트폴리오</title>
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script>
+    (function() {
+      const THEME_KEY = 'theme';
+      const DARK_THEME = 'dark';
+      const LIGHT_THEME = 'light';
+      const stored = localStorage.getItem(THEME_KEY);
+      const theme = stored || DARK_THEME;
+      if (theme === LIGHT_THEME) {
+        document.documentElement.removeAttribute('data-theme');
+      } else {
+        document.documentElement.setAttribute('data-theme', DARK_THEME);
+      }
+    })();
+  </script>
+</head>
+<body>
+  <header>
+    <a href="../index.html" class="brand">곽근오 · Game Programmer</a>
+    <button class="theme-toggle" type="button" aria-label="테마 전환">
+      <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+      </svg>
+      <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
+  </header>
+
+  <main>
+    <div class="breadcrumb">
+      <a href="../index.html">← 메인으로</a>
+    </div>
+
+    <article class="project-hero">
+      <h1>클레바테스 콜라보 기믹</h1>
+      <div class="project-tagline">그림자 분신 퍼즐 & 텔레포트</div>
+
+      <div class="project-meta-detail">
+        <div class="project-meta-item">
+          <div class="project-meta-label">역할</div>
+          <div>Quest Client 프로그래머</div>
+        </div>
+        <div class="project-meta-item">
+          <div class="project-meta-label">회사</div>
+          <div>콩스튜디오</div>
+        </div>
+        <div class="project-meta-item">
+          <div class="project-meta-label">엔진</div>
+          <div>Unity</div>
+        </div>
+        <div class="project-meta-item">
+          <div class="project-meta-label">기술</div>
+          <div>C#, Lua</div>
+        </div>
+      </div>
+    </article>
+
+    <section class="project-overview">
+      <h2>개요</h2>
+      <p>
+        클레바테스 콜라보는 콩스튜디오의 게임에 추가된 기한정 보스 던전 기믹입니다. 플레이어가 자신의 그림자 분신과 위치를 교환하여 퍼즐을 풀고, 텔레포트 연출을 통해 신비로운 전투 경험을 제공합니다.
+      </p>
+      <p>
+        이 기믹은 단순한 게임플레이를 넘어 시각적·청각적 연출의 동기화가 중요했던 프로젝트입니다. 여러 비동기 요소(카메라 이동, 스케일 변화, 캐릭터 틴트)를 정확히 조정하면서도 기획자가 쉽게 파라미터를 조절할 수 있는 유연한 구조를 설계해야 했습니다.
+      </p>
+    </section>
+
+    <section class="key-contributions">
+      <h2>핵심 기여</h2>
+
+      <article class="contribution-section">
+        <h3>FSM 기반의 유연한 객체 상태 제어</h3>
+        <p>
+          스포너(Spawner)와 그림자 분신 객체의 생애 주기(대기, 캐스팅, 스폰, 밀림 등)를 상태 머신 패턴으로 설계하여 결합도를 낮추고 로직 확장을 용이하게 함.
+        </p>
+        <p class="aux">
+          상태 머신을 통해 각 상태에서의 동작이 명확히 분리되어 새로운 상태나 전이 규칙 추가 시 기존 코드 수정을 최소화했습니다. 이는 향후 기믹 변경이나 새 기능 추가 시 개발 속도 향상으로 이어졌습니다.
+        </p>
+      </article>
+
+      <article class="contribution-section">
+        <h3>데이터 주도 설계(Data-Driven Design) 도입</h3>
+        <p>
+          기믹의 일차별 스폰 개수, 지속 시간 등의 핵심 기획 변수를 Lua 데이터 파일로 분리하여 기획자 친화적인 밸런싱 환경 구축.
+        </p>
+        <p class="aux">
+          코드 수정 없이 Lua 파일만 변경하여 게임 밸런싱을 빠르게 반복할 수 있게 되어, 기획-프로그래밍 사이의 피드백 루프가 매우 단축되었습니다.
+        </p>
+      </article>
+
+      <article class="contribution-section">
+        <h3>EDA(Event-Driven Architecture) 및 메모리 관리</h3>
+        <p>
+          C# 메시지 시스템을 활용해 이벤트를 구독/해제(Subscribe/Unsubscribe)하는 방식으로 설계하고, 객체 해제 시 누수(Leak)가 발생하지 않도록 메모리를 안전하게 관리함.
+        </p>
+        <p class="aux">
+          느슨한 결합으로 인해 각 객체가 독립적으로 동작하면서도 필요한 이벤트만 수신하도록 설계했습니다. 반복 생성/삭제되는 기믹 특성상 메모리 관리가 매우 중요했는데, 이벤트 해제 누락으로 인한 메모리 누수를 완벽히 방지했습니다.
+        </p>
+      </article>
+
+      <article class="contribution-section">
+        <h3>비동기 연출 동기화</h3>
+        <p>
+          플레이어와 그림자의 위치 전환 시 카메라 이동, 스케일 변화, 캐릭터 틴트 효과 등을 코루틴으로 0.6초 내에 오차 없이 동기화하여 자연스러운 텔레포트 연출 구현.
+        </p>
+        <p class="aux">
+          여러 애니메이션을 정확한 타이밍에 동시에 실행하면서도 프레임 드랍이 발생하지 않도록 최적화했습니다. 시각적 만족도가 높은 연출의 기반이 되었으며, 플레이어의 게임 몰입도에 직접적인 영향을 미쳤습니다.
+        </p>
+      </article>
+    </section>
+
+    <section>
+      <h2>사용 기술</h2>
+      <div class="tech-used">
+        <span class="tech-chip">Unity</span>
+        <span class="tech-chip">C#</span>
+        <span class="tech-chip">Lua</span>
+        <span class="tech-chip">FSM</span>
+        <span class="tech-chip">EDA</span>
+        <span class="tech-chip">Coroutine</span>
+      </div>
+    </section>
+
+    <section>
+      <img src="../assets/images/placeholders/klevathes.svg" alt="클레바테스 콜라보 기믹 스크린샷" class="project-image">
+    </section>
+
+    <div class="breadcrumb breadcrumb-bottom">
+      <a href="../index.html">← 메인으로</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 곽근오. 마지막 업데이트: 2026.04.</p>
+  </footer>
+
+  <script src="../assets/js/theme-toggle.js"></script>
+</body>
+</html>

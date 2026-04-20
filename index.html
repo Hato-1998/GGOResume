@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>곽근오 · Game Programmer</title>
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <script>
+    (function() {
+      const THEME_KEY = 'theme';
+      const DARK_THEME = 'dark';
+      const LIGHT_THEME = 'light';
+      const stored = localStorage.getItem(THEME_KEY);
+      const theme = stored || DARK_THEME;
+      if (theme === LIGHT_THEME) {
+        document.documentElement.removeAttribute('data-theme');
+      } else {
+        document.documentElement.setAttribute('data-theme', DARK_THEME);
+      }
+    })();
+  </script>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="brand">곽근오 · Game Programmer</a>
+    <button class="theme-toggle" type="button" aria-label="테마 전환">
+      <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+      </svg>
+      <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>한 발자국 앞에 있는 프로그래머</h1>
+      <div class="hero-meta">
+        <span><strong>곽근오</strong> · Game Programmer</span>
+      </div>
+      <div class="hero-meta">
+        <span>경력: 3년 7개월</span>
+        <span>현 소속: 콩스튜디오</span>
+      </div>
+      <div class="hero-links">
+        <a href="mailto:korast@naver.com">이메일</a>
+        <a href="https://github.com/Hato-1998" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+      <h2>소개</h2>
+      <p>
+        저는 팀원들과 보폭을 맞추면서도 한 발 앞서 방향을 제시하는 프로그래머가 되고자 합니다. 대학 졸업 작품에서 기획 팀원 이탈 상황을 팀원 다독임과 일정 조율로 극복한 경험이 있으며, 이를 통해 기술적 역량만큼 팀 협력과 리더십의 중요성을 깨달았습니다.
+      </p>
+      <p>
+        KGCA 아카데미에서 렌더링 파이프라인과 설계 기본기를 다지고, 5인 UE5 팀 프로젝트에서 AI 파트 코드 충돌을 공용 클래스 추출로 해결하면서 확장 가능한 아키텍처의 가치를 경험했습니다. 이러한 기본기와 협력 경험을 바탕으로 더 나은 게임 개발에 기여하고 싶습니다.
+      </p>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section class="tech-stack">
+      <h2>기술 스택</h2>
+
+      <div class="tech-category">
+        <div class="tech-category-title">Direct3D</div>
+        <div class="tech-category-desc">렌더링 파이프라인, LOD/QuadTree 맵 최적화, 3인칭 카메라 구현</div>
+        <div class="tech-tags">
+          <span class="tech-tag">렌더링</span>
+          <span class="tech-tag">최적화</span>
+        </div>
+      </div>
+
+      <div class="tech-category">
+        <div class="tech-category-title">C++</div>
+        <div class="tech-category-desc">객체지향 계층 설계 (Object → 2D/3D → Sprite/Box), STL/알고리즘, 메모리 메커니즘</div>
+        <div class="tech-tags">
+          <span class="tech-tag">OOP</span>
+          <span class="tech-tag">STL</span>
+          <span class="tech-tag">메모리</span>
+        </div>
+      </div>
+
+      <div class="tech-category">
+        <div class="tech-category-title">Unreal Engine 5</div>
+        <div class="tech-category-desc">Actor/Pawn/Character 상속 이해, 머티리얼/나이아가라, 5인 쿼터뷰 RPG 팀 프로젝트</div>
+        <div class="tech-tags">
+          <span class="tech-tag">UE5</span>
+          <span class="tech-tag">Blueprint</span>
+          <span class="tech-tag">VFX</span>
+        </div>
+      </div>
+
+      <div class="tech-category">
+        <div class="tech-category-title">Unity</div>
+        <div class="tech-category-desc">10주 인턴십 턴제 포격 게임, 8개월 횡스크롤 팀 프로젝트, NGUI/TileMap</div>
+        <div class="tech-tags">
+          <span class="tech-tag">Unity</span>
+          <span class="tech-tag">UI</span>
+        </div>
+      </div>
+
+      <div class="tech-category">
+        <div class="tech-category-title">C#</div>
+        <div class="tech-category-desc">메시지 시스템 EDA, Reflection 활용</div>
+        <div class="tech-tags">
+          <span class="tech-tag">C#</span>
+          <span class="tech-tag">아키텍처</span>
+        </div>
+      </div>
+
+      <div class="tech-category">
+        <div class="tech-category-title">Lua</div>
+        <div class="tech-category-desc">데이터 주도 설계 (기획 밸런싱)</div>
+        <div class="tech-tags">
+          <span class="tech-tag">스크립팅</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Career Section -->
+    <section class="career">
+      <h2>경력</h2>
+
+      <div class="career-item">
+        <div class="career-header">콩스튜디오</div>
+        <div class="career-meta">2022.10 ~ 재직중 | Quest Client 담당</div>
+        <ul>
+          <li>게임 진행 중 발생하는 Quest, 미니게임, 기믹 구현</li>
+          <li>Unity + C# 기반, Lua 데이터 파일 활용</li>
+          <li>클라이언트 사이드 로직 설계 및 최적화</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Projects - Work Experience -->
+    <section class="projects">
+      <h2>프로젝트 · 실무 경력</h2>
+      <div class="projects-grid">
+        <a href="projects/klevathes-gimmick.html" class="project-card">
+          <img src="assets/images/placeholders/klevathes.svg" alt="클레바테스 콜라보 기믹" class="project-image">
+          <h3>클레바테스 콜라보 기믹</h3>
+          <div class="tagline">그림자 분신 퍼즐 & 텔레포트</div>
+          <div class="project-meta">
+            <span>콩스튜디오</span>
+            <span>Quest</span>
+          </div>
+          <p class="project-description">FSM 기반 상태 관리, Lua 데이터 주도 설계, 코루틴 동기화 연출</p>
+        </a>
+
+        <a href="projects/tunnel-run.html" class="project-card">
+          <img src="assets/images/placeholders/tunnel-run.svg" alt="터널 런 미니게임" class="project-image">
+          <h3>터널 런 미니게임</h3>
+          <div class="tagline">3D 무한 러너 & QTE</div>
+          <div class="project-meta">
+            <span>콩스튜디오</span>
+            <span>Unity</span>
+          </div>
+          <p class="project-description">MVC 아키텍처, 오브젝트 풀링, 3D 수학 기반 동적 공간 제어</p>
+        </a>
+
+        <a href="projects/fx-preview-browser.html" class="project-card">
+          <img src="assets/images/placeholders/fx-preview.svg" alt="FX Preview Browser" class="project-image">
+          <h3>FX Preview Browser</h3>
+          <div class="tagline">사내 에디터 툴</div>
+          <div class="project-meta">
+            <span>콩스튜디오</span>
+            <span>Editor</span>
+          </div>
+          <p class="project-description">PreviewRenderUtility, 에디터 시뮬레이션, Reflection 활용</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Projects - Student/Academy -->
+    <section class="projects">
+      <h2>프로젝트 · 학생/아카데미</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <img src="assets/images/placeholders/eldorado.svg" alt="Eldorado 프로젝트" class="project-image">
+          <h3>Eldorado</h3>
+          <div class="tagline">쿼터뷰 RPG</div>
+          <div class="project-meta">
+            <span>2022.06</span>
+            <span>KGCA</span>
+            <span>UE5</span>
+          </div>
+          <p class="project-description">3주, 5인 프로그래머 팀. Map/서브 몬스터/이펙트 담당.</p>
+        </div>
+
+        <div class="project-card">
+          <img src="assets/images/placeholders/hear.svg" alt="Hear 프로젝트" class="project-image">
+          <h3>Hear</h3>
+          <div class="tagline">횡스크롤 스토리 게임</div>
+          <div class="project-meta">
+            <span>2020.08 ~ 12</span>
+            <span>김포대 졸업작품</span>
+          </div>
+          <p class="project-description">5개월, 5인 팀. Map/UI 담당. A 평가.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="education">
+      <h2>교육</h2>
+
+      <div class="education-item">
+        <h3>KGCA 게임 아카데미</h3>
+        <div class="education-meta">2021.09 ~ 2022.06 | 게임 개발</div>
+      </div>
+
+      <div class="education-item">
+        <h3>김포대학교</h3>
+        <div class="education-meta">2017.03 ~ 2021.08 | 게임콘텐츠 전공</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 곽근오. 마지막 업데이트: 2026.04.</p>
+  </footer>
+
+  <script src="assets/js/theme-toggle.js"></script>
+</body>
+</html>

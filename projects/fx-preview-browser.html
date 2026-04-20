@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FX Preview Browser · 곽근오 포트폴리오</title>
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script>
+    (function() {
+      const THEME_KEY = 'theme';
+      const DARK_THEME = 'dark';
+      const LIGHT_THEME = 'light';
+      const stored = localStorage.getItem(THEME_KEY);
+      const theme = stored || DARK_THEME;
+      if (theme === LIGHT_THEME) {
+        document.documentElement.removeAttribute('data-theme');
+      } else {
+        document.documentElement.setAttribute('data-theme', DARK_THEME);
+      }
+    })();
+  </script>
+</head>
+<body>
+  <header>
+    <a href="../index.html" class="brand">곽근오 · Game Programmer</a>
+    <button class="theme-toggle" type="button" aria-label="테마 전환">
+      <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+      </svg>
+      <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
+  </header>
+
+  <main>
+    <div class="breadcrumb">
+      <a href="../index.html">← 메인으로</a>
+    </div>
+
+    <article class="project-hero">
+      <h1>FX Preview Browser</h1>
+      <div class="project-tagline">사내 에디터 툴</div>
+
+      <div class="project-meta-detail">
+        <div class="project-meta-item">
+          <div class="project-meta-label">역할</div>
+          <div>Tool Programmer</div>
+        </div>
+        <div class="project-meta-item">
+          <div class="project-meta-label">회사</div>
+          <div>콩스튜디오</div>
+        </div>
+        <div class="project-meta-item">
+          <div class="project-meta-label">엔진</div>
+          <div>Unity Editor</div>
+        </div>
+        <div class="project-meta-item">
+          <div class="project-meta-label">기술</div>
+          <div>C#, Reflection</div>
+        </div>
+      </div>
+    </article>
+
+    <section class="project-overview">
+      <h2>개요</h2>
+      <p>
+        FX Preview Browser는 콩스튜디오의 비개발 직군(기획, 아트팀)을 위해 개발한 사내 전용 에디터 툴입니다. 수백 개의 게임 이펙트를 깔끔한 인터페이스에서 빠르게 검색하고 미리보기할 수 있도록 설계되어, 기획과 아트팀의 작업 효율을 대폭 향상시켰습니다.
+      </p>
+      <p>
+        기존에는 에디터에서 직접 씬을 오염시키면서 각각의 이펙트를 프리뷰해야 했는데, 이 툴을 통해 완전히 독립된 렌더링 환경에서 리얼타임 프리뷰가 가능해졌습니다. 기술적으로는 Unity의 에디터 렌더링 API와 Reflection을 활용한 고급 기법이 적용되었습니다.
+      </p>
+    </section>
+
+    <section class="key-contributions">
+      <h2>핵심 기여</h2>
+
+      <article class="contribution-section">
+        <h3>기획/아트 파이프라인 개선을 위한 에디터 툴 개발</h3>
+        <p>
+          씬(Scene) 오염 없이 수백 개의 이펙트를 에디터 창에서 즉시 렌더링하고 확인할 수 있는 사내 전용 FX 뷰어를 개발하여 비개발 직군의 작업 효율을 대폭 향상시킴.
+        </p>
+        <p class="aux">
+          이전에는 이펙트 확인을 위해 매번 씬에 배치해야 했는데, 이 툴 덕분에 별도의 전담 뷰어에서 목록 검색으로 빠르게 비교 검토할 수 있게 되었습니다. 기획과 아트팀의 피드백 사이클이 크게 단축되었습니다.
+        </p>
+      </article>
+
+      <article class="contribution-section">
+        <h3>PreviewRenderUtility 기반 독립 렌더링 환경 구축</h3>
+        <p>
+          에디터 윈도우 내부에 가상 카메라와 조명을 세팅하고 마우스 입력(Pan, Orbit, Zoom) 처리 로직을 구현하여 직관적인 UX를 제공함.
+        </p>
+        <p class="aux">
+          PreviewRenderUtility를 통해 메인 씬과는 완전히 분리된 렌더링 파이프라인을 만들어, 아트팀이 마치 별도의 뷰어에서 작업하는 것처럼 자연스러운 경험을 제공했습니다.
+        </p>
+      </article>
+
+      <article class="contribution-section">
+        <h3>에디터 환경 내 시뮬레이션 수동 동기화</h3>
+        <p>
+          플레이 모드가 아닌 상태에서도 ParticleSystem.Simulate와 CustomAnimator에 강제로 deltaTime을 주입하여 인게임과 동일한 시각적 피드백을 구현함.
+        </p>
+        <p class="aux">
+          에디터의 정지 상태에서도 파티클 시뮬레이션을 수동으로 진행시켜 인게임과 정확히 동일한 비주얼을 미리볼 수 있게 했습니다. 이는 기획/아트의 최종 검증 단계에서 매우 중요한 신뢰성을 제공했습니다.
+        </p>
+      </article>
+
+      <article class="contribution-section">
+        <h3>C# Reflection을 활용한 내부 변수 제어 및 릭 방지</h3>
+        <p>
+          커스텀 애니메이터의 인스턴스 매테리얼 누수 문제를 해결하기 위해, Reflection(BindingFlags.NonPublic)을 사용해 숨겨진 private 필드에 접근, sharedMaterial을 강제 할당하여 메모리 최적화 및 렌더링 오류를 방어함.
+        </p>
+        <p class="aux">
+          매번 이펙트를 렌더링할 때마다 메모리 누수가 발생하는 문제를 Reflection을 활용해 엔진의 내부 구조에 접근하는 방식으로 해결했습니다. 이는 매우 고급 기법이지만, 비용-효율을 생각했을 때 가장 실용적인 솔루션이었습니다.
+        </p>
+      </article>
+    </section>
+
+    <section>
+      <h2>사용 기술</h2>
+      <div class="tech-used">
+        <span class="tech-chip">Unity Editor</span>
+        <span class="tech-chip">C#</span>
+        <span class="tech-chip">Reflection</span>
+        <span class="tech-chip">PreviewRenderUtility</span>
+        <span class="tech-chip">Editor Window</span>
+      </div>
+    </section>
+
+    <section>
+      <img src="../assets/images/placeholders/fx-preview.svg" alt="FX Preview Browser 스크린샷" class="project-image">
+    </section>
+
+    <div class="breadcrumb breadcrumb-bottom">
+      <a href="../index.html">← 메인으로</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 곽근오. 마지막 업데이트: 2026.04.</p>
+  </footer>
+
+  <script src="../assets/js/theme-toggle.js"></script>
+</body>
+</html>
