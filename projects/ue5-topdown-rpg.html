@@ -47,10 +47,40 @@
 
     <section class="project-overview">
       <h2>개요</h2>
-      <p>
-        GAS(Gameplay Ability System) 기반 AAA급 코드 아키텍처 학습이 목표인 Top-Down RPG <br><br>
-        개인 학습 프로젝트로, GAS의 핵심 추상(Attribute Set, Gameplay Effect, Ability Task)을 직접 구현하며 멀티플레이 복제·UI MVVM 패턴까지 통합 학습
-      </p>
+      <div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
+        <div style="flex:0 0 360px; width:360px;">
+          <iframe
+                  id="overview-video"
+                  width="100%"
+                  style="aspect-ratio:16 / 9; border:0; border-radius:12px;"
+                  src="https://www.youtube-nocookie.com/embed/hBmJnTlfYtA"
+                  title="유튜브 영상"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen>
+          </iframe>
+        </div>
+        <div style="flex:1; min-width:280px;">
+          <p>
+            GAS(Gameplay Ability System) 기반 AAA급 코드 아키텍처 학습을 목표로 작업한 RPG 게임<br><br>
+            개인 학습 프로젝트로, GAS의 핵심 추상(Attribute Set, Gameplay Effect, Ability Task)을 직접 구현하며 학습
+          </p>
+        </div>
+      </div>
+      
+      <script src="https://www.youtube.com/iframe_api"></script>
+      <script>
+        let overviewPlayer;
+
+        function onYouTubeIframeAPIReady() {
+          overviewPlayer = new YT.Player('overview-video', {
+            events: {
+              onReady: function (event) {
+                event.target.setVolume(25);
+              }
+            }
+          });
+        }
+      </script>
     </section>
 
     <section class="key-contributions">
@@ -59,30 +89,22 @@
       <article class="contribution-section">
         <h3>GAS 기반 어트리뷰트 & 이펙트 시스템</h3>
         <p>
-          Custom Ability System Component와 Attribute Set 구현으로 Primary(Strength·Intelligence·Resilience·Vigor)와 Secondary(Armor·Crit·Regen) 복제 처리, 화염·번개 등 피해 타입별 저항·디버프 구현
-        </p>
-        <p class="aux">
-          Gameplay Effect와 Attribute Set의 상호작용을 학습하여 서버-클라이언트 복제 환경에서 일관된 게임 상태를 유지하는 방식을 체득했습니다.
+          Custom Ability System Component와 Attribute Set를 상속받아 커스텀한 Primary(Strength·Intelligence·Resilience·Vigor)와 Secondary(Armor·Crit·Regen) Attribute 구현 <br>
+          화염·번개 등 피해 타입별 저항·디버프 구현
         </p>
       </article>
 
       <article class="contribution-section">
         <h3>스펠 & 패시브 어빌리티 시스템</h3>
         <p>
-          FireBolt, Electrocute, Arcane Shards, FireBlast 등 액티브/패시브 스펠을 Ability Task 기반으로 모듈화하고, 마나 소모·쿨다운·런타임 단축키 배정 기능 구현
-        </p>
-        <p class="aux">
-          복잡한 스펠 시전 로직을 Async Task와 조합하여 분리된 책임으로 설계했습니다.
+          Ability Task 기반으로 FireBolt 등의 스킬들을 제작 및 모듈화하고 마나 소모·쿨다운·런타임 단축키 배정 기능 구현
         </p>
       </article>
 
       <article class="contribution-section">
         <h3>Behavior Tree + EQS 기반 적 AI</h3>
         <p>
-          Warrior(근거리), Ranger(원거리), Elementalist(마법) 타입별 행동 분기와 스펠 시전·미니언 소환 로직을 구현, EQS로 전술적 위치 질의
-        </p>
-        <p class="aux">
-          Behavior Tree와 Environment Query System으로 적 의사결정을 데이터 주도적으로 설계했습니다.
+          Warrior(근거리), Ranger(원거리), Elementalist(마법) 타입별 행동 분기와 공격 및 별도 행동 로직(소환, 스킬 구사) 구현, EQS로 AI 경로 파악
         </p>
       </article>
     </section>
