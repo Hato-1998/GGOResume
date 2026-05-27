@@ -42,7 +42,7 @@
 
     <article class="project-hero">
       <h1>UE5 Top-Down RPG</h1>
-      <div class="project-tagline">GAS 기반 액션 RPG</div>
+      <div class="project-tagline">이 프로젝트는 언리얼에서 다양한 기능들을 학습하고 구현하려고 시작하였습니다 <br> 추가로 베이스 작업 이후 단순한 학습의 결과물이 아니라 이후에도 다양한 RPG에 활용 가능한 RPG 베이스로 만드는 것이었습니다.</div>
     </article>
 
     <section class="project-overview">
@@ -53,7 +53,7 @@
                   id="overview-video"
                   width="100%"
                   style="aspect-ratio:16 / 9; border:0; border-radius:12px;"
-                  src="https://www.youtube-nocookie.com/embed/hBmJnTlfYtA"
+                  src="https://www.youtube-nocookie.com/embed/M6sWZnHQJJM"
                   title="유튜브 영상"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowfullscreen>
@@ -61,8 +61,8 @@
         </div>
         <div style="flex:1; min-width:280px;">
           <p>
-            GAS(Gameplay Ability System) 기반 AAA급 코드 아키텍처 학습을 목표로 작업한 RPG 게임<br><br>
-            개인 학습 프로젝트로, GAS의 핵심 추상(Attribute Set, Gameplay Effect, Ability Task)을 직접 구현하며 학습
+            Aura는 Unreal Engine 5 기반 탑다운 액션 RPG 프레임워크입니다. <br><br>
+ Gameplay Ability System, Enhanced Input, MVVM UI, 멀티 슬롯 SaveGame, 체크포인트 기반 맵 진행, AI 적, 루트 드롭, 모듈형 PlayerController 구조를 포함합니다. <br><br> 튜토리얼 규모의 코드를 RPG 기본 베이스로 확장 가능하도록 저장, 데이터, 입력 책임을 Subsystem과 Component로 분리하는 리팩토링을 중심으로 작업했습니다.
           </p>
         </div>
       </div>
@@ -87,24 +87,23 @@
       <h2>핵심 기여</h2>
 
       <article class="contribution-section">
-        <h3>GAS 기반 어트리뷰트 & 이펙트 시스템</h3>
+        <h3> 저장 시스템 최신화 </h3>
         <p>
-          Custom Ability System Component와 Attribute Set를 상속받아 커스텀한 Primary(Strength·Intelligence·Resilience·Vigor)와 Secondary(Armor·Crit·Regen) Attribute 구현 <br>
-          화염·번개 등 피해 타입별 저항·디버프 구현
+          UGameInstanceSubsystem 기반 저장 계층으로 안정적인 액터 GUID, 맵 검증, 슬롯 fallback, 결정적인 저장 순서를 추가하여 멀티 맵 RPG 진행을 안정화
         </p>
       </article>
 
       <article class="contribution-section">
-        <h3>스펠 & 패시브 어빌리티 시스템</h3>
+        <h3>GAS 및 RPG 데이터 흐름</h3>
         <p>
-          Ability Task 기반으로 FireBolt 등의 스킬들을 제작 및 모듈화하고 마나 소모·쿨다운·런타임 단축키 배정 기능 구현
+          DataAsset 기반 클래스 기본값, 어빌리티 메타데이터, 디버프/데미지 Context 직렬화, 지속 가능한 어빌리티 진행 저장을 포함한 GAS 기반 RPG 프레임워크를 구축
         </p>
       </article>
 
       <article class="contribution-section">
-        <h3>Behavior Tree + EQS 기반 적 AI</h3>
+        <h3> 체크포인트 및 멀티 맵 진행 </h3>
         <p>
-          Warrior(근거리), Ranger(원거리), Elementalist(마법) 타입별 행동 분기와 공격 및 별도 행동 로직(소환, 스킬 구사) 구현, EQS로 AI 경로 파악
+          체크포인트 기반 멀티 맵 진행 시스템을 구현하고, 도달 상태 저장, PlayerStart 복원, 클릭 이동 목적지 오버라이드 흐름을 안정화
         </p>
       </article>
     </section>
@@ -117,6 +116,7 @@
         <span class="tech-chip">GAS</span>
         <span class="tech-chip">Behavior Tree</span>
         <span class="tech-chip">MVVM</span>
+        <span class="tech-chip">SubSystem</span>
       </div>
     </section>
 
