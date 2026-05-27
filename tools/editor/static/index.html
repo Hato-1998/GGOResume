@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GGOResume 편집기</title>
+    <link rel="stylesheet" href="/style.css">
+
+    <!-- 코드 하이라이트 (HTML) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11/styles/github.min.css">
+</head>
+<body>
+
+<header>
+    <h1>GGOResume HTML 편집기</h1>
+    <div class="actions">
+        <button id="btn-new" title="새 페이지 추가">+ 새 페이지</button>
+        <button id="btn-save" disabled title="Ctrl+S로 저장">저장</button>
+        <button id="btn-deploy" title="git push로 GitHub에 배포">배포 <span id="deploy-count" class="badge"></span></button>
+        <span id="status" class="status">파일을 선택하세요</span>
+    </div>
+</header>
+
+<main>
+    <aside id="sidebar">
+        <div class="sidebar-header">HTML 파일</div>
+        <div id="tree" class="tree">로딩 중…</div>
+    </aside>
+
+    <section id="editor-pane" class="pane">
+        <div class="pane-header">
+            <span>편집 (HTML)</span>
+            <div class="toolbar">
+                <button class="tool-btn" data-action="section" title="섹션 div">섹션</button>
+                <button class="tool-btn" data-action="link" title="앵커 링크">링크</button>
+                <button class="tool-btn" data-action="img" title="이미지 태그">이미지</button>
+                <button class="tool-btn" data-action="card" title="카드 블록">카드</button>
+                <button class="tool-btn" data-action="todo" title="TODO 주석">TODO</button>
+                <button class="tool-btn" data-action="comment" title="블록 주석">주석</button>
+            </div>
+        </div>
+        <textarea id="editor" spellcheck="false" placeholder="파일을 선택하거나 + 새 페이지로 시작하세요."></textarea>
+        <div class="pane-footer" id="editor-stats">0줄 · 0자</div>
+    </section>
+
+    <section id="preview-pane" class="pane">
+        <div class="pane-header">
+            <span>미리보기</span>
+            <div class="preview-controls">
+                <button id="btn-refresh-preview" class="tool-btn" title="강제 새로고침">↻</button>
+                <button id="btn-open-tab" class="tool-btn" title="새 탭에서 열기">↗</button>
+            </div>
+        </div>
+        <iframe id="preview" sandbox="allow-same-origin allow-scripts" title="미리보기"></iframe>
+    </section>
+</main>
+
+<!-- 새 페이지 모달 -->
+<div id="new-modal" class="modal" hidden>
+    <div class="modal-content">
+        <h2>새 HTML 페이지 추가</h2>
+        <label>
+            위치
+            <select id="new-location">
+                <option value="projects">projects/ (포트폴리오 항목)</option>
+                <option value="root">루트 (메인 페이지)</option>
+            </select>
+        </label>
+        <label>
+            슬러그 (파일명, 영문)
+            <input id="new-slug" type="text" placeholder="예: my-new-game">
+        </label>
+        <label>
+            페이지 제목
+            <input id="new-title" type="text" placeholder="예: My New Game · 곽근오 포트폴리오">
+        </label>
+        <div class="modal-actions">
+            <button id="btn-cancel" class="btn-secondary">취소</button>
+            <button id="btn-create" class="btn-primary">생성 후 편집</button>
+        </div>
+        <div id="new-error" class="error-msg" hidden></div>
+    </div>
+</div>
+
+<!-- 배포 모달 -->
+<div id="deploy-modal" class="modal" hidden>
+    <div class="modal-content">
+        <h2>GitHub에 배포</h2>
+        <p class="modal-help">
+            로컬 변경을 GitHub에 푸시합니다. GitHub Pages가 자동으로 사이트를 갱신합니다 (보통 30초~2분).
+        </p>
+        <div id="deploy-status" class="deploy-status">상태 확인 중…</div>
+        <div id="deploy-files-wrap" hidden>
+            <details>
+                <summary id="deploy-files-summary">변경된 파일</summary>
+                <ul id="deploy-files" class="file-changes"></ul>
+            </details>
+        </div>
+        <label>
+            커밋 메시지
+            <input id="deploy-message" type="text" value="docs: update portfolio via editor">
+        </label>
+        <div class="modal-actions">
+            <button id="btn-deploy-cancel" class="btn-secondary">취소</button>
+            <button id="btn-deploy-confirm" class="btn-primary">push (배포)</button>
+        </div>
+        <div id="deploy-progress" class="info-msg" hidden>배포 중…</div>
+        <div id="deploy-error" class="error-msg" hidden></div>
+        <div id="deploy-success" class="success-msg" hidden></div>
+    </div>
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>
