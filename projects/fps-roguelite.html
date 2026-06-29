@@ -54,7 +54,7 @@
         <div style="flex:1; min-width:280px;">
           <p>
             Co-op Survivor FPS는 Unreal Engine 5.7 기반의 1인칭 협동 PVE 로그라이트입니다. The Spell Brigade를 레퍼런스로, 최대 4인이 함께 수백 마리(~300-500)의 적 스웜을 상대합니다. <br><br>
-            핵심 설계 원칙은 'Hero Shooter 편향 배제'입니다. 12명 규모의 정밀 AI 대신 적을 경량 액터로 두고, Flow-Field 길찾기 · 스티어링 · SignificanceManager · Push Model 복제로 대규모 군중을 서버 권위 하에 처리합니다. GAS는 플레이어와 보스/엘리트에만 적용합니다. <br><br>
+            핵심 설계 원칙은 Flow-Field 길찾기 · 스티어링 · SignificanceManager · Push Model 복제로 대규모 군중을 서버 권위 하에 처리합니다. GAS는 플레이어와 보스/엘리트에만 적용합니다. <br><br>
             런 기반 진행 구조로, 레벨업·미션 클리어 시 전역 프리즈 카드 선택을 통해 빌드를 강화하고, RunDirector가 스케줄에 따라 미션과 보스를 배치합니다. Steam 기반 세션/로비와 Seamless Travel로 4인 협동을 구현했습니다.
           </p>
         </div>
@@ -81,7 +81,7 @@
       <article class="contribution-section">
         <h3>런 디렉터 & 미션 루프</h3>
         <p>
-          RunDirectorSubsystem이 스케줄 데이터에 따라 미션 7종(HoldZone · CollectOrbs · CarryNoHit · DefeatFleeing 등)과 보스를 진행하고, GameFlowSubsystem이 메뉴 → 로비 → 런 → 결과의 전체 흐름을 상태 기반으로 관리합니다.
+          RunDirectorSubsystem이 스케줄 데이터에 따라 미션과 보스를 진행하고, GameFlowSubsystem이 메뉴 → 로비 → 런 → 결과의 전체 흐름을 상태 기반으로 관리합니다.
         </p>
       </article>
 
