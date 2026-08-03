@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Choose And Focus · 곽근오 포트폴리오</title>
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script>
+    (function() {
+      const THEME_KEY = 'theme';
+      const DARK_THEME = 'dark';
+      const LIGHT_THEME = 'light';
+      const stored = localStorage.getItem(THEME_KEY);
+      const theme = stored || DARK_THEME;
+      if (theme === LIGHT_THEME) {
+        document.documentElement.removeAttribute('data-theme');
+      } else {
+        document.documentElement.setAttribute('data-theme', DARK_THEME);
+      }
+    })();
+  </script>
+</head>
+<body>
+  <header>
+    <a href="../index.html" class="brand">곽근오 · Game Programmer</a>
+    <button class="theme-toggle" type="button" aria-label="테마 전환">
+      <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+      </svg>
+      <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
+  </header>
+
+  <main>
+    <div class="breadcrumb">
+      <a href="../index.html">← 메인으로</a>
+    </div>
+
+    <article class="project-hero">
+      <h1>Choose And Focus</h1>
+      <div class="project-tagline">GMTK Game Jam 2026 출품작 · 수강신청 모티프 실시간 폴리오미노 퍼즐</div>
+    </article>
+
+    <section class="project-overview">
+      <h2>개요</h2>
+      <div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
+        <div style="flex:0 0 360px; width:360px;">
+          <img src="../assets/images/placeholders/choose-and-focus.jpg" alt="Choose And Focus" style="width:100%; border-radius:12px;">
+        </div>
+        <div style="flex:1; min-width:280px;">
+          <p>
+            수강신청을 모티프로 한 실시간 퍼즐. 필드를 빈틈없이 덮은 폴리오미노 조각이 각각 "정원"을 들고 있고, 정원이 0이 되면 마감되어 사라진다. 학점이 높은 색일수록 빨리 마감되므로 짧은 시간 안에 무엇을 잡을지와 인벤토리를 어떻게 채울지를 동시에 결정해야 한다. <br><br>
+            Unity 6 · C# · WebGL 단일 씬. 라운드가 끝나면 인벤토리를 캡처해 LootLocker 리더보드에 점수와 함께 올린다. <br><br>
+            <strong>기간</strong> 2026.07.23 ~ 07.26 (4일) · <strong>팀</strong> 2인 (프로그래밍 전담)
+          </p>
+          <p>
+            <a href="https://icefin.itch.io/choose-and-focus" target="_blank" rel="noopener noreferrer">itch.io에서 플레이 →</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="key-contributions">
+      <h2>담당 작업</h2>
+      <ul class="contribution-list">
+        <li><strong>게임 전체 구조 설계</strong> — 상태 머신(Title → Countdown → Reveal → Play → Scoring → Result), 시스템 간 직접 참조를 없앤 정적 이벤트 허브, ScriptableObject 단일 파라미터 소스</li>
+        <li><strong>필드 생성기</strong> — 폴리오미노 덱만으로 12×8 필드를 빈칸 없이 채우는 백트래킹 exact-cover, 실패 시 그리디 폴백</li>
+        <li><strong>수강신청 정원 시스템</strong> — 조각별 독립 난수 스트림으로 정원 감소·취소 부활 처리, 색별 주기 분리로 고학점 과목이 먼저 마감</li>
+        <li><strong>드래그&amp;드롭 배치</strong> — uGUI EventSystem 드래그, 배치 고스트 프리뷰, 우클릭으로 필드 원위치 회수</li>
+        <li><strong>채점</strong> — 색 점수와 인벤토리 셀 모디파이어를 규칙 인터페이스로 분리</li>
+        <li><strong>온라인 리더보드</strong> — LootLocker 세션·점수 제출·인벤토리 스크린샷 썸네일 업로드/조회</li>
+        <li><strong>WebGL 빌드 파이프라인</strong> — 에디터/배치 빌드 진입점, 플랫폼 설정 강제</li>
+      </ul>
+    </section>
+
+    <section class="key-contributions">
+      <h2>트러블슈팅</h2>
+
+      <article class="contribution-section">
+        <h3>1. WebGL 빌드가 첫 프레임에 죽던 부팅 크래시</h3>
+        <dl class="career-table">
+          <dt>증상</dt>
+          <dd>배포 빌드에서만 <code>Uncaught exception from main loop</code> → <code>Halting program</code>. 아무것도 렌더링되기 전에 사망. 에디터와 배치 빌드는 정상</dd>
+
+          <dt>원인</dt>
+          <dd>트윈 라이브러리의 이징 평가 함수가 Burst Direct Call 폴백에서 자기 자신의 역방향 래퍼를 호출 → 무한 재귀. 타이틀 트윈이 첫 프레임에 이징을 평가하는 순간 스택 오버플로. 패키지는 며칠 전 도입됐지만 씬에 트윈이 처음 배치된 건 크래시 당일 — 설치와 실행은 다름</dd>
+
+          <dt>검증</dt>
+          <dd>예외 지원 설정을 범인으로 오진해 커밋까지 감. 심볼 포함 프로브 빌드를 따로 구워 스택에서 함수 이름을 확보하고 원인 확정. Burst 활성 2/2회 재현, 비활성 0회</dd>
+
+          <dt>수정</dt>
+          <dd>WebGL 타깃 Burst AOT 비활성. 조용히 되돌아갈 수 있는 설정이라 릴리즈 빌드 진입점이 매번 강제</dd>
+
+          <dt>결과</dt>
+          <dd>콘솔 에러 0, 렌더 루프 진입. wasm 54.5MB → 54.3MB. 오진했던 커밋 메시지를 바로잡는 정정 커밋 추가</dd>
+        </dl>
+      </article>
+
+      <article class="contribution-section">
+        <h3>2. 리더보드를 몇 번 열면 점수 제출까지 막힘</h3>
+        <dl class="career-table">
+          <dt>증상</dt>
+          <dd>리더보드 반복 열람 후 백엔드 요청이 몇 분간 전부 실패. 그 라운드 점수가 통째로 소실</dd>
+
+          <dt>원인</dt>
+          <dd>썸네일 URL 해석이 행마다 파일 목록 API를 호출 — 50행 + 본인 카드 = 51요청. 서명 URL이 CORS로 막혀 스프라이트 캐시가 채워지지 않으니 열 때마다 전체 팬아웃 반복. SDK 요청 수 제한에 걸리는 순간 점수 제출을 포함한 모든 요청이 하드 실패</dd>
+
+          <dt>검증</dt>
+          <dd>열람 1회당 실제 발생 요청 수를 세어 SDK 리미터 한계치와 대조. 캐시가 채워지지 않는 이유(CORS 차단)를 응답에서 확인</dd>
+
+          <dt>수정</dt>
+          <dd>해석 결과를 캐시. "썸네일 없음"인 빈 결과까지 캐시해야 재조회가 멈춘다. 다운로드는 대기자 목록을 두어 한 번만 받고 그 사이 요청한 모든 행에 배분</dd>
+
+          <dt>결과</dt>
+          <dd>재열람 51요청 → 약 2요청. 리미터 연쇄 실패 소멸. 같은 경로의 텍스처 누수·표시 중 해제 문제도 함께 정리</dd>
+        </dl>
+      </article>
+
+      <article class="contribution-section">
+        <h3>3. 필드에 빈칸이 남던 생성기</h3>
+        <dl class="career-table">
+          <dt>증상</dt>
+          <dd>폴리오미노로 필드를 채우면 군데군데 빈칸. 의도한 "빈틈없이 덮인 판"이 나오지 않음</dd>
+
+          <dt>원인</dt>
+          <dd>첫 빈 칸을 순서대로 메우는 그리디 방식. 한 번 dead-end에 빠지면 되돌아갈 수단이 없음</dd>
+
+          <dt>검증</dt>
+          <dd>EditMode 유닛 테스트로 고정 — 24조각·96칸 미커버 0, 같은 시드는 같은 레이아웃(색 포함), 해가 존재하지 않는 조각 풀에서는 폴백 동작</dd>
+
+          <dt>수정</dt>
+          <dd>명시적 스택 기반 반복 백트래킹 exact-cover로 교체. 코루틴 <code>yield</code>와 공존해야 해 재귀는 사용 불가. 조각 크기의 최대공약수가 필드 넓이를 나누지 못하면 탐색 없이 즉시 폴백, 탐색 예산 초과 시 그리디로 내려가 항상 종료</dd>
+
+          <dt>결과</dt>
+          <dd>빈칸 0 완전 타일링. <code>yield</code>가 난수를 소비하지 않도록 설계해 결정론도 유지</dd>
+        </dl>
+      </article>
+    </section>
+
+    <section class="key-contributions">
+      <h2>그 외 처리한 이슈</h2>
+      <ul class="contribution-list">
+        <li><strong>우클릭이 브라우저 컨텍스트 메뉴를 띄움</strong> — 컨텍스트 메뉴를 막는 코드는 커스텀 WebGL 템플릿 안에만 있는데 템플릿이 선택돼 있지 않았음. 직전 인수인계 문서 기록과 실제가 달랐고, 이후로는 빌드 진입점이 설정을 단언</li>
+        <li><strong>닉네임이 이전 이름으로 되돌아감</strong> — 세션 재동기화가 매 실행마다 옛 이름을 서버로 push. 계측 로그로 옛 이름 쓰기가 0.08초 앞서 완료되는 것을 실측한 뒤, 재동기화를 실패·보류 시에만 발화하도록 변경해 경합 구간 제거</li>
+        <li><strong>동시 드래그로 조각 영구 유실</strong> — UI 입력 모듈이 버튼마다 독립된 드래그 상태 머신을 돌려, 좌클릭 드래그 중 우클릭 드래그가 대상을 덮어씀. 좌버튼·재진입 가드 + 드래그 시작 포인터에 고정</li>
+        <li><strong>가장자리를 잡으면 커서와 도형이 어긋남</strong> — 앵커를 셀 단위로 반올림했고 기준 좌표가 드래그 임계값만큼 움직인 뒤의 위치였음. 연속 좌표 + "처음 누른 지점" 기준으로 교체</li>
+        <li><strong>마지막 배치가 썸네일에서 누락</strong> — 드래그 정리 전에 종료 판정이 동기 연쇄로 돌아 조각을 비활성화. 썸네일은 같은 프레임 끝에 찍힘. 상태 확정·드래그 정리를 연쇄보다 앞으로</li>
+        <li><strong>종료 시 유령 오브젝트 재생성</strong> — 싱글턴 지연 생성이 teardown 중에도 동작. <code>OnApplicationQuit</code>이 모든 <code>OnDestroy</code>보다 먼저 실행되는 것을 이용해 루트에서 차단</li>
+        <li><strong>솔버 강도가 플레이어 프레임레이트에 좌우</strong> — "프레임당 조각 수"로 튜닝된 값이 "프레임당 탐색 노드 수"로 재사용되고 있었음. 실경과 시간 기반 슬라이스로 교체</li>
+        <li><strong>제출 실패 시 기록 소실 / 낡은 응답이 방금 낸 점수를 덮어씀</strong> — 제출 전 로컬에 적어두고 다음 실행에 재제출, 요청에는 세대 토큰을 붙여 늦게 착지한 응답을 폐기</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>사용 기술</h2>
+      <div class="tech-used">
+        <span class="tech-chip">Unity 6</span>
+        <span class="tech-chip">C#</span>
+        <span class="tech-chip">WebGL</span>
+        <span class="tech-chip">uGUI</span>
+        <span class="tech-chip">TextMeshPro</span>
+        <span class="tech-chip">ScriptableObject</span>
+        <span class="tech-chip">LootLocker</span>
+        <span class="tech-chip">Unity Test Framework</span>
+      </div>
+    </section>
+
+    <div class="breadcrumb breadcrumb-bottom">
+      <a href="../index.html">← 메인으로</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 곽근오. 마지막 업데이트: 2026.08.</p>
+  </footer>
+
+  <script src="../assets/js/theme-toggle.js"></script>
+</body>
+</html>
