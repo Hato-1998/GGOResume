@@ -55,7 +55,8 @@
           <p>
             Co-op Survivor FPS는 Unreal Engine 5.7 기반의 1인칭 협동 PVE 로그라이트입니다. The Spell Brigade를 레퍼런스로, 최대 4인이 함께 수백 마리(~300-500)의 적 스웜을 상대합니다. <br><br>
             핵심 설계 원칙은 Flow-Field 길찾기 · 스티어링 · SignificanceManager · Push Model 복제로 대규모 군중을 서버 권위 하에 처리합니다. GAS는 플레이어와 보스/엘리트에만 적용합니다. <br><br>
-            런 기반 진행 구조로, 레벨업·미션 클리어 시 전역 프리즈 카드 선택을 통해 빌드를 강화하고, RunDirector가 스케줄에 따라 미션과 보스를 배치합니다. Steam 기반 세션/로비와 Seamless Travel로 4인 협동을 구현했습니다.
+            런 기반 진행 구조로, 레벨업·미션 클리어 시 전역 프리즈 카드 선택을 통해 빌드를 강화하고, RunDirector가 스케줄에 따라 미션과 보스를 배치합니다. Steam 기반 세션/로비와 Seamless Travel로 4인 협동을 구현했습니다. <br><br>
+            <strong>기간</strong> 2026.05.28 ~ 진행중 · <strong>인원</strong> 1인 (생성형 AI 상시 활용 — 아래 "AI 협업 방식" 참조)
           </p>
         </div>
       </div>
@@ -93,6 +94,68 @@
       </article>
     </section>
 
+    <section class="key-contributions">
+      <h2>AI 협업 방식</h2>
+      <p>
+        이 프로젝트는 처음부터 생성형 AI를 상시 도구로 두고 진행했습니다. 아래는 "AI를 썼다"가 아니라 <strong>AI 산출물을 어디까지 믿지 않을 것인가</strong>를 정한 규칙과, 그 규칙이 나오게 된 사고 기록입니다.
+      </p>
+
+      <article class="contribution-section">
+        <h3>규모</h3>
+        <dl class="career-table">
+          <dt>기간</dt>
+          <dd>2026.05.28 ~ 2026.08.31 (96일, 진행중)</dd>
+
+          <dt>커밋</dt>
+          <dd>1,428 (2026.08.31 기준)</dd>
+
+          <dt>C++</dt>
+          <dd>374파일 · 79,193줄</dd>
+
+          <dt>문서 · 자동화</dt>
+          <dd>ADR 14건 · 자동화 스크립트 67개</dd>
+        </dl>
+      </article>
+
+      <article class="contribution-section">
+        <h3>무검증 채택 경로를 구조적으로 없앰</h3>
+        <p>
+          작업 단위마다 <strong>조사 → 플랜 게이트 → 사용자 승인 → 구현 → 검증 → 머지 레드팀 게이트</strong>를 통과해야 main에 들어갑니다. 두 게이트는 설계한 주체와 분리된 별도의 적대 리뷰어가 맡습니다. 지적을 기각하려면 근거(코드 인용 · 실측치 · 제1원리 조항)를 대야 하고, 못 대면 기각이 아니라 미해결로 남습니다. 최종 판정은 하위 모델에 위임하지 않으며, 게이트 지적을 반영한 커밋이 이력에 그대로 남아 있습니다.
+        </p>
+      </article>
+
+      <article class="contribution-section">
+        <h3>뒤집힌 결정을 지우지 않고 보존</h3>
+        <p>
+          ADR 14건 중 <strong>4건이 후속 결정으로 완전히 대체</strong>됐고, <strong>2건은 일부 항목만 대체</strong>됐습니다. 1인칭 팔 하나를 두고 ADR 0002~0006 다섯 문서가 이어지며 그중 3건이 뒤집혔습니다. 문서를 지우거나 덮어쓰는 대신 <code>상태: 대체됨(→ NNNN)</code>과 <code>대체 대상</code>/<code>계승 대상</code>을 양쪽 문서에 남겨, <strong>무엇이 왜 뒤집혔고 무엇이 계승됐는지</strong>가 읽히도록 했습니다. 결정이 바뀐 계기는 대부분 실플레이 판정이었습니다.
+        </p>
+      </article>
+
+      <article class="contribution-section">
+        <h3>AI의 실패 패턴을 역분석해 규약으로 고정</h3>
+        <ul class="contribution-list">
+          <li><strong>빌드 성패는 종료코드가 아니라 로그의 <code>^Result:</code> 줄로 판정</strong> — 2026-08-17, 하네스는 exit 0을 보고했지만 UBT는 <code>error C2664</code>로 실패한 상태였습니다. 로그를 리다이렉트하면 <code>$?</code>가 마지막 파이프의 코드라 종료코드가 0으로 뒤집힙니다. 그 알림만 믿었으면 실패한 빌드를 통과로 보고했을 것입니다</li>
+          <li><strong>엔진 소스 우선</strong> — 엔진 API·매크로·플래그명은 추론하지 말고 엔진 소스에서 같은 패턴의 실제 사용례를 먼저 grep해 대조합니다. API 오류의 원인은 버전 차이가 아니라 <em>확인하지 않은 추론</em>이었습니다</li>
+          <li><strong>대조군 없는 판정 금지</strong> — "바꿔도 안 변한다"는 대조군 없이 성립하지 않습니다</li>
+          <li><strong>착수 전 필요성·가능성·더 빠른 대안 검사</strong> — 아래 폐기 사례에서 역산해 만든 규칙입니다</li>
+        </ul>
+      </article>
+
+      <article class="contribution-section">
+        <h3>AI에게 맡기지 않을 영역을 명시적으로 확정</h3>
+        <p>
+          블루프린트·애님그래프 노드 편집, DataAsset 값 저작, 커브 튜닝, 애니메이션 저작, 게임 실행 검증은 <strong>사람이 한다</strong>고 못박았습니다. 여러 차례 실제로 부딪힌 뒤 규칙으로 승격된 항목들이라, 이 경계는 사전에 세운 원칙이 아니라 사고 기록에서 나왔습니다.
+        </p>
+      </article>
+
+      <article class="contribution-section">
+        <h3>4세대까지 만든 툴을 전량 폐기</h3>
+        <p>
+          총모션 저작 툴을 에디터 탭 v1~v3 + 인게임 ImGui 스튜디오까지 <strong>4세대에 걸쳐 만들었으나 쓸 만한 결과물이 0이라 2026-08-10 전량 폐기</strong>하고, 저작을 Blender / Sequencer+Control Rig / Persona 표준 파이프라인으로 되돌렸습니다. 근본 원인은 툴의 완성도가 아니라 <strong>"이미 같은 일을 하는 표준 도구가 있는지"를 착수 전에 검사하지 않은 것</strong>이었고, 그 결론이 위의 "착수 전 검사" 규약이 됐습니다. 폐기 후에는 살아남은 데이터·런타임 계약만 명세로 남겼습니다.
+        </p>
+      </article>
+    </section>
+
     <section>
       <h2>사용 기술</h2>
       <div class="tech-used">
@@ -117,7 +180,7 @@
   </main>
 
   <footer>
-    <p>&copy; 2026 곽근오. 마지막 업데이트: 2026.06.</p>
+    <p>&copy; 2026 곽근오. 마지막 업데이트: 2026.08.</p>
   </footer>
 
   <script src="../assets/js/theme-toggle.js"></script>
