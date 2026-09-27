@@ -701,3 +701,36 @@ button:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
+
+/* 설계 포트폴리오: 긴 한글 설명과 모바일 열람 */
+.design-portfolio { max-width: 920px; }
+.design-portfolio p, .design-list { line-height: 1.85; word-break: keep-all; overflow-wrap: anywhere; }
+.design-portfolio .project-tagline { font-style: normal; max-width: 44rem; }
+.design-portfolio h1, .design-portfolio h2, .project-card h3 { font-family: var(--font-sans); }
+.design-portfolio a:not(.portfolio-source) { color: var(--accent); text-underline-offset: 0.22em; }
+.eyebrow, .project-category { color: var(--accent); font-size: .8rem; font-weight: 650; letter-spacing: .07em; margin-bottom: 1rem; }
+.portfolio-source { display: inline-block; color: var(--accent); font-weight: 650; text-underline-offset: .25em; }
+.project-nav { display: flex; gap: .75rem 1.5rem; flex-wrap: wrap; border-block: 1px solid var(--border); padding: 1rem 0; }
+.project-nav a { text-decoration: none; font-size: .95rem; }
+.design-case { padding: 1.5rem 0; border-bottom: 1px solid var(--border); }
+.design-case:first-child { padding-top: 0; }
+.design-case h3 { font-size: 1.15rem; margin-bottom: 1rem; }
+.design-case p { margin-bottom: .85rem; }
+.design-case p strong { color: var(--accent); margin-right: .5rem; }
+.design-list { padding-left: 1.3rem; }
+.design-list li { margin-bottom: .9rem; }
+.architecture-flow { padding-left: 1.5rem; }
+.architecture-flow li { padding: .7rem 0 .9rem .5rem; }
+.architecture-flow strong, .architecture-flow span { display: block; }
+.architecture-flow span { color: var(--muted); margin-top: .25rem; line-height: 1.7; }
+.source-note { color: var(--muted); font-size: .9rem; margin-top: 1rem; }
+.project-demo { max-width: 640px; margin: 1.5rem 0; }
+.project-demo iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: var(--radius-md); margin-bottom: .6rem; }
+.project-card .project-category { margin-top: 0; padding-top: .5rem; }
+.project-card .project-description { line-height: 1.7; word-break: keep-all; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+@media (max-width: 600px) {
+  .design-portfolio .project-hero h1 { font-size: 1.8rem; line-height: 1.3; }
+  .design-portfolio section { margin: 2.25rem 0; }
+  .design-portfolio .project-nav { gap: .7rem 1.1rem; }
+}

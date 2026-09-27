@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>UE5 Top-Down RPG · 곽근오 포트폴리오</title>
+  <title>Aura · UE5 Top-Down RPG · 곽근오 포트폴리오</title>
   <link rel="stylesheet" href="../assets/css/tokens.css">
   <link rel="stylesheet" href="../assets/css/main.css">
   <script>
@@ -35,100 +35,76 @@
     </button>
   </header>
 
-  <main>
-    <div class="breadcrumb">
-      <a href="../index.html">← 메인으로</a>
+  <main class="design-portfolio">
+    <div class="breadcrumb"><a href="../portfolio.html">← 포트폴리오 목록</a>
     </div>
-
     <article class="project-hero">
-      <h1>UE5 Top-Down RPG</h1>
-      <div class="project-tagline">이 프로젝트는 언리얼에서 다양한 기능들을 학습하고 구현하려고 시작하였습니다 <br> 추가로 베이스 작업 이후 단순한 학습의 결과물이 아니라 이후에도 다양한 RPG에 활용 가능한 RPG 베이스로 만드는 것이었습니다.</div>
+    <p class="eyebrow">GAMEPLAY PROGRAMMING</p>
+    <h1>Aura · UE5 Top-Down RPG</h1>
+    <p class="project-tagline">GAS 전투에서 입력·UI·체크포인트 저장까지 이어지는 RPG 구조</p>
+    <p class="project-meta">개인 학습 프로젝트 · 2026.03 ~ 05 · Unreal Engine 5.7 · C++ · GAS</p><a class="portfolio-source" href="https://github.com/Hato-1998/UE5TopDownRPG-Portfolio">GitHub 구조·설계 포트폴리오 ↗</a>
     </article>
-
-    <section class="project-overview">
-      <h2>개요</h2>
-      <div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
-        <div style="flex:0 0 360px; width:360px;">
-          <iframe
-                  id="overview-video"
-                  width="100%"
-                  style="aspect-ratio:16 / 9; border:0; border-radius:12px;"
-                  src="https://www.youtube-nocookie.com/embed/M6sWZnHQJJM"
-                  title="유튜브 영상"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen>
-          </iframe>
-        </div>
-        <div style="flex:1; min-width:280px;">
-          <p>
-            Aura는 Unreal Engine 5 기반 탑다운 액션 RPG 프레임워크입니다. <br><br>
- Gameplay Ability System, Enhanced Input, MVVM UI, 멀티 슬롯 SaveGame, 체크포인트 기반 맵 진행, AI 적, 루트 드롭, 모듈형 PlayerController 구조를 포함합니다. <br><br> 튜토리얼 규모의 코드를 RPG 기본 베이스로 확장 가능하도록 저장, 데이터, 입력 책임을 Subsystem과 Component로 분리하는 리팩토링을 중심으로 작업했습니다.
-          </p>
-        </div>
-      </div>
-      
-      <script src="https://www.youtube.com/iframe_api"></script>
-      <script>
-        let overviewPlayer;
-
-        function onYouTubeIframeAPIReady() {
-          overviewPlayer = new YT.Player('overview-video', {
-            events: {
-              onReady: function (event) {
-                event.target.setVolume(25);
-              }
-            }
-          });
-        }
-      </script>
-    </section>
-
-    <section class="key-contributions">
-      <h2>핵심 기여</h2>
-
-      <article class="contribution-section">
-        <h3> 저장 시스템 최신화 </h3>
-        <p>
-          UGameInstanceSubsystem 기반 저장 계층으로 안정적인 액터 GUID, 맵 검증, 슬롯 fallback, 결정적인 저장 순서를 추가하여 멀티 맵 RPG 진행을 안정화
-        </p>
-      </article>
-
-      <article class="contribution-section">
-        <h3>GAS 및 RPG 데이터 흐름</h3>
-        <p>
-          DataAsset 기반 클래스 기본값, 어빌리티 메타데이터, 디버프/데미지 Context 직렬화, 지속 가능한 어빌리티 진행 저장을 포함한 GAS 기반 RPG 프레임워크를 구축
-        </p>
-      </article>
-
-      <article class="contribution-section">
-        <h3> 체크포인트 및 멀티 맵 진행 </h3>
-        <p>
-          체크포인트 기반 멀티 맵 진행 시스템을 구현하고, 도달 상태 저장, PlayerStart 복원, 클릭 이동 목적지 오버라이드 흐름을 안정화
-        </p>
-      </article>
-    </section>
-
-    <section>
-      <h2>사용 기술</h2>
-      <div class="tech-used">
-        <span class="tech-chip">Unreal Engine 5.7</span>
-        <span class="tech-chip">C++</span>
-        <span class="tech-chip">GAS</span>
-        <span class="tech-chip">Behavior Tree</span>
-        <span class="tech-chip">MVVM</span>
-        <span class="tech-chip">SubSystem</span>
-      </div>
-    </section>
-
-    <div class="breadcrumb breadcrumb-bottom">
-      <a href="../index.html">← 메인으로</a>
+    <nav class="project-nav" aria-label="프로젝트 목차"><a href="#overview">개요</a><a href="#challenges">설계 과제</a><a href="#premises">설계 전제</a><a href="#architecture">한눈에 보기</a>
+    </nav>
+    <section id="overview">
+    <h2>개요</h2>
+    <p>GAS 기반 전투와 캐릭터 성장, 스킬 메뉴, 체크포인트 저장을 연결한 탑다운 RPG입니다. Stephen Ulibarri의 <em>Unreal Engine 5 - Gameplay Ability System - Top Down RPG</em> 강의를 기반으로 학습하고, 저장·데이터·입력의 책임을 서브시스템과 컴포넌트로 분리했습니다.</p>
+    <div class="project-demo"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/M6sWZnHQJJM" title="Aura RPG 플레이 데모" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><a href="https://youtu.be/M6sWZnHQJJM">플레이 영상 보기 ↗</a>
     </div>
-  </main>
-
-  <footer>
-    <p>&copy; 2026 곽근오. 마지막 업데이트: 2026.04.</p>
-  </footer>
-
+    </section>
+    <section id="challenges">
+    <h2>설계 과제</h2>
+    <div class="design-cases">
+    <article class="design-case">
+    <h3>01. 전투 상태와 실행 주체 분리</h3>
+    <p><strong>과제</strong> 캐릭터의 행동과 지속되는 플레이어 상태를 구분하고, 피해 계산에서 UI까지 흐름을 연결해야 합니다.</p>
+    <p><strong>설계</strong> ASC·AttributeSet은 PlayerState에 두고 Character를 행동 주체로 연결합니다. GameplayAbility 실행, GameplayEffect·ExecCalc 계산, AttributeSet 반영으로 역할을 나눕니다.</p><a href="https://github.com/Hato-1998/UE5TopDownRPG-Portfolio/blob/main/docs/02-combat.md">설계 상세 읽기 →</a>
+    </article>
+    <article class="design-case">
+    <h3>02. 입력과 화면의 책임 분리</h3>
+    <p><strong>과제</strong> 클릭 이동과 스킬이 마우스 입력을 공유하고, PlayerController에 기능이 모이기 쉽습니다.</p>
+    <p><strong>설계</strong> 클릭 이동·커서 대상·마법진·피해 숫자를 컴포넌트로 분리합니다. 전투 HUD와 성장 메뉴는 WidgetController, 로드 화면은 MVVM으로 구성합니다.</p><a href="https://github.com/Hato-1998/UE5TopDownRPG-Portfolio/blob/main/docs/03-input-ui.md">설계 상세 읽기 →</a>
+    </article>
+    <article class="design-case">
+    <h3>03. 맵별 진행 상태 복원</h3>
+    <p><strong>과제</strong> 맵을 이동해도 슬롯·플레이어·배치 액터 상태를 일관된 기준으로 저장해야 합니다.</p>
+    <p><strong>설계</strong> SaveGameSubsystem이 저장 흐름을 담당합니다. 액터를 영속 GUID로 식별하고 이전 저장의 이름 매칭을 보조 경로로 유지하며, 맵별 상태를 기존 월드 액터에 복원합니다.</p><a href="https://github.com/Hato-1998/UE5TopDownRPG-Portfolio/blob/main/docs/04-save.md">설계 상세 읽기 →</a>
+    </article>
+    </div>
+    </section>
+    <section id="premises">
+    <h2>설계 전제</h2>
+    <ul class="design-list">
+    <li>스킬 실행은 GameplayAbility, 수치 변화는 GameplayEffect·AttributeSet을 중심으로 구성합니다.</li>
+    <li>캐릭터 기본값·스킬 정보·레벨별 계수는 DataAsset과 테이블로 관리합니다.</li>
+    <li>HUD와 로드 화면은 목적에 맞춰 WidgetController와 MVVM을 각각 사용합니다.</li>
+    <li>현재 저장 경로는 동기 방식이며 기존 배치 액터의 상태를 복원합니다. 비동기 저장 큐나 일반적인 동적 액터 재생성 시스템으로 설명하지 않습니다.</li>
+    </ul>
+    </section>
+    <section id="architecture">
+    <h2>구조 한눈에 보기</h2>
+    <ol class="architecture-flow">
+    <li><strong>입력 의도</strong><span>Enhanced Input·GameplayTag를 PlayerController에서 조정</span>
+    </li>
+    <li><strong>전투·속성</strong><span>PlayerState의 ASC를 거쳐 스킬·효과·피해 계산 수행</span>
+    </li>
+    <li><strong>화면 반영</strong><span>AttributeSet 변경을 WidgetController가 HUD와 성장 메뉴에 전달</span>
+    </li>
+    <li><strong>진행 저장</strong><span>체크포인트·로드 화면이 SaveGameSubsystem을 통해 슬롯과 맵별 상태 관리</span>
+    </li>
+    </ol>
+    </section>
+    <section id="scope">
+    <h2>학습 기반과 공개 범위</h2>
+    <p>강의 기반 프로젝트의 구현과 현재 구조를 소개합니다. 강의와 엔진이 제공한 기반, 책임 분리와 저장 구조를 정리한 작업을 구분해 설명합니다.</p>
+    <p>공개 포트폴리오는 구조 설명과 다이어그램으로 구성되며 소스 코드와 코드 발췌는 포함하지 않습니다. <a href="https://github.com/Hato-1998/UE5TopDownRPG-Portfolio/blob/main/NOTICE.md">검토 기준과 공개 범위</a>
+    </p>
+    </section>
+    <div class="breadcrumb breadcrumb-bottom"><a href="../portfolio.html">← 포트폴리오 목록</a>
+    </div>
+    </main>  <footer>
+    <p>&copy; 2026 곽근오. 마지막 업데이트: 2026.09.28.</p>
+    </footer>
   <script src="../assets/js/theme-toggle.js"></script>
 </body>
 </html>

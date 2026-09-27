@@ -35,154 +35,76 @@
     </button>
   </header>
 
-  <main>
-    <div class="breadcrumb">
-      <a href="../index.html">← 메인으로</a>
+  <main class="design-portfolio">
+    <div class="breadcrumb"><a href="../portfolio.html">← 포트폴리오 목록</a>
     </div>
-
     <article class="project-hero">
-      <h1>Co-op Survivor FPS</h1>
-      <div class="project-tagline">1인칭 FPS × 뱀파이어 서바이벌 × 4인 협동 로그라이트 (PVE) <br> 레퍼런스 The Spell Brigade. 수백 마리의 적 스웜을 경량으로 처리하는 서바이버형 슈터를 목표로 설계했습니다.</div>
+    <p class="eyebrow">GAMEPLAY PROGRAMMING</p>
+    <h1>Co-op Survivor FPS</h1>
+    <p class="project-tagline">공유 길찾기와 서버 권위 상점으로 연결한 협동 서바이버 FPS</p>
+    <p class="project-meta">개인 프로젝트 · 2026.05 ~ 진행 중 · Unreal Engine 5.8 · C++ · GAS</p><a class="portfolio-source" href="https://github.com/Hato-1998/FPSRoguelite-Portfolio">GitHub 구조·설계 포트폴리오 ↗</a>
     </article>
-
-    <section class="project-overview">
-      <h2>개요</h2>
-      <div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
-        <div style="flex:0 0 360px; width:360px;">
-          <img src="../assets/images/placeholders/Unreal5.png" alt="Co-op Survivor FPS" style="width:100%; border-radius:12px;">
-        </div>
-        <div style="flex:1; min-width:280px;">
-          <p>
-            Co-op Survivor FPS는 Unreal Engine 5.7 기반의 1인칭 협동 PVE 로그라이트입니다. The Spell Brigade를 레퍼런스로, 최대 4인이 함께 수백 마리(~300-500)의 적 스웜을 상대합니다. <br><br>
-            핵심 설계 원칙은 Flow-Field 길찾기 · 스티어링 · SignificanceManager · Push Model 복제로 대규모 군중을 서버 권위 하에 처리합니다. GAS는 플레이어와 보스/엘리트에만 적용합니다. <br><br>
-            런 기반 진행 구조로, 레벨업·미션 클리어 시 전역 프리즈 카드 선택을 통해 빌드를 강화하고, RunDirector가 스케줄에 따라 미션과 보스를 배치합니다. Steam 기반 세션/로비와 Seamless Travel로 4인 협동을 구현했습니다. <br><br>
-            <strong>기간</strong> 2026.05.28 ~ 진행중 · <strong>인원</strong> 1인 (생성형 AI 상시 활용 — 아래 "AI 협업 방식" 참조)
-          </p>
-        </div>
-      </div>
+    <nav class="project-nav" aria-label="프로젝트 목차"><a href="#overview">개요</a><a href="#challenges">설계 과제</a><a href="#premises">설계 전제</a><a href="#architecture">한눈에 보기</a>
+    </nav>
+    <section id="overview">
+    <h2>개요</h2>
+    <p>직접 조준하고 쏘는 1인칭 전투에 서바이버의 성장 루프를 결합한 프로젝트입니다. 솔로부터 최대 4인 협동을 목표로, 많은 적의 이동 비용을 공유하고 실시간 상점의 판정과 재화 변경을 서버에 모았습니다.</p>
+    <p>프로그래밍 포트폴리오는 <strong>문제와 설계 선택, 책임과 데이터 흐름, 한계와 검증</strong>을 중심으로 소개합니다.</p>
     </section>
-
-    <section class="key-contributions">
-      <h2>핵심 기여</h2>
-
-      <article class="contribution-section">
-        <h3>대규모 적 스웜 성능 아키텍처</h3>
-        <p>
-          수백 마리의 적을 개별 NavMesh·StateTree 없이 처리하기 위해 Flow-Field 길찾기 + 스티어링 + SignificanceManager 기반 LOD + Push Model 복제 구조를 설계. 적은 경량 HealthComponent와 비-GE 데미지로 두고, GAS는 플레이어/보스에만 한정해 액터당 비용을 최소화했습니다.
-        </p>
-      </article>
-
-      <article class="contribution-section">
-        <h3>GAS 무기 · 로그라이트 카드 빌드</h3>
-        <p>
-          Hitscan · Projectile · ChargeLaser · Melee 발사를 GameplayAbility로 구현하고, WeaponInstance + Fragment 모디파이어로 데이터 주도 무기 시스템을 구성. 레벨업 시 전역 프리즈 카드 선택으로 런마다 달라지는 빌드 다양성을 제공합니다.
-        </p>
-      </article>
-
-      <article class="contribution-section">
-        <h3>런 디렉터 & 미션 루프</h3>
-        <p>
-          RunDirectorSubsystem이 스케줄 데이터에 따라 미션과 보스를 진행하고, GameFlowSubsystem이 메뉴 → 로비 → 런 → 결과의 전체 흐름을 상태 기반으로 관리합니다.
-        </p>
-      </article>
-
-      <article class="contribution-section">
-        <h3>Steam 4인 협동 멀티플레이</h3>
-        <p>
-          OnlineSubsystem(Steam) + SteamSockets 기반 세션/로비를 구축하고, Seamless Travel로 로비→런 전환을 처리. 서버 권위 + Push Model로 대규모 스웜 환경에서도 복제 비용을 통제합니다.
-        </p>
-      </article>
-    </section>
-
-    <section class="key-contributions">
-      <h2>AI 협업 방식</h2>
-      <p>
-        이 프로젝트는 처음부터 생성형 AI를 상시 도구로 두고 진행했습니다. 아래는 "AI를 썼다"가 아니라 <strong>AI 산출물을 어디까지 믿지 않을 것인가</strong>를 정한 규칙과, 그 규칙이 나오게 된 사고 기록입니다.
-      </p>
-
-      <article class="contribution-section">
-        <h3>규모</h3>
-        <dl class="career-table">
-          <dt>기간</dt>
-          <dd>2026.05.28 ~ 2026.08.31 (96일, 진행중)</dd>
-
-          <dt>커밋</dt>
-          <dd>1,428 (2026.08.31 기준)</dd>
-
-          <dt>C++</dt>
-          <dd>374파일 · 79,193줄</dd>
-
-          <dt>문서 · 자동화</dt>
-          <dd>ADR 14건 · 자동화 스크립트 67개</dd>
-        </dl>
-      </article>
-
-      <article class="contribution-section">
-        <h3>무검증 채택 경로를 구조적으로 없앰</h3>
-        <p>
-          작업 단위마다 <strong>조사 → 플랜 게이트 → 사용자 승인 → 구현 → 검증 → 머지 레드팀 게이트</strong>를 통과해야 main에 들어갑니다. 두 게이트는 설계한 주체와 분리된 별도의 적대 리뷰어가 맡습니다. 지적을 기각하려면 근거(코드 인용 · 실측치 · 제1원리 조항)를 대야 하고, 못 대면 기각이 아니라 미해결로 남습니다. 최종 판정은 하위 모델에 위임하지 않으며, 게이트 지적을 반영한 커밋이 이력에 그대로 남아 있습니다.
-        </p>
-      </article>
-
-      <article class="contribution-section">
-        <h3>뒤집힌 결정을 지우지 않고 보존</h3>
-        <p>
-          ADR 14건 중 <strong>4건이 후속 결정으로 완전히 대체</strong>됐고, <strong>2건은 일부 항목만 대체</strong>됐습니다. 1인칭 팔 하나를 두고 ADR 0002~0006 다섯 문서가 이어지며 그중 3건이 뒤집혔습니다. 문서를 지우거나 덮어쓰는 대신 <code>상태: 대체됨(→ NNNN)</code>과 <code>대체 대상</code>/<code>계승 대상</code>을 양쪽 문서에 남겨, <strong>무엇이 왜 뒤집혔고 무엇이 계승됐는지</strong>가 읽히도록 했습니다. 결정이 바뀐 계기는 대부분 실플레이 판정이었습니다.
-        </p>
-      </article>
-
-      <article class="contribution-section">
-        <h3>AI의 실패 패턴을 역분석해 규약으로 고정</h3>
-        <ul class="contribution-list">
-          <li><strong>빌드 성패는 종료코드가 아니라 로그의 <code>^Result:</code> 줄로 판정</strong> — 2026-08-17, 하네스는 exit 0을 보고했지만 UBT는 <code>error C2664</code>로 실패한 상태였습니다. 로그를 리다이렉트하면 <code>$?</code>가 마지막 파이프의 코드라 종료코드가 0으로 뒤집힙니다. 그 알림만 믿었으면 실패한 빌드를 통과로 보고했을 것입니다</li>
-          <li><strong>엔진 소스 우선</strong> — 엔진 API·매크로·플래그명은 추론하지 말고 엔진 소스에서 같은 패턴의 실제 사용례를 먼저 grep해 대조합니다. API 오류의 원인은 버전 차이가 아니라 <em>확인하지 않은 추론</em>이었습니다</li>
-          <li><strong>대조군 없는 판정 금지</strong> — "바꿔도 안 변한다"는 대조군 없이 성립하지 않습니다</li>
-          <li><strong>착수 전 필요성·가능성·더 빠른 대안 검사</strong> — 아래 폐기 사례에서 역산해 만든 규칙입니다</li>
-        </ul>
-      </article>
-
-      <article class="contribution-section">
-        <h3>AI에게 맡기지 않을 영역을 명시적으로 확정</h3>
-        <p>
-          블루프린트·애님그래프 노드 편집, DataAsset 값 저작, 커브 튜닝, 애니메이션 저작, 게임 실행 검증은 <strong>사람이 한다</strong>고 못박았습니다. 여러 차례 실제로 부딪힌 뒤 규칙으로 승격된 항목들이라, 이 경계는 사전에 세운 원칙이 아니라 사고 기록에서 나왔습니다.
-        </p>
-      </article>
-
-      <article class="contribution-section">
-        <h3>4세대까지 만든 툴을 전량 폐기</h3>
-        <p>
-          총모션 저작 툴을 에디터 탭 v1~v3 + 인게임 ImGui 스튜디오까지 <strong>4세대에 걸쳐 만들었으나 쓸 만한 결과물이 0이라 2026-08-10 전량 폐기</strong>하고, 저작을 Blender / Sequencer+Control Rig / Persona 표준 파이프라인으로 되돌렸습니다. 근본 원인은 툴의 완성도가 아니라 <strong>"이미 같은 일을 하는 표준 도구가 있는지"를 착수 전에 검사하지 않은 것</strong>이었고, 그 결론이 위의 "착수 전 검사" 규약이 됐습니다. 폐기 후에는 살아남은 데이터·런타임 계약만 명세로 남겼습니다.
-        </p>
-      </article>
-    </section>
-
-    <section>
-      <h2>사용 기술</h2>
-      <div class="tech-used">
-        <span class="tech-chip">Unreal Engine 5.7</span>
-        <span class="tech-chip">C++</span>
-        <span class="tech-chip">GAS</span>
-        <span class="tech-chip">Flow-Field</span>
-        <span class="tech-chip">SignificanceManager</span>
-        <span class="tech-chip">Push Model</span>
-        <span class="tech-chip">CommonUI</span>
-        <span class="tech-chip">Enhanced Input</span>
-        <span class="tech-chip">GameFeatures</span>
-        <span class="tech-chip">StateTree</span>
-        <span class="tech-chip">OnlineSubsystem (Steam)</span>
-        <span class="tech-chip">AnimToTexture</span>
-      </div>
-    </section>
-
-    <div class="breadcrumb breadcrumb-bottom">
-      <a href="../index.html">← 메인으로</a>
+    <section id="challenges">
+    <h2>설계 과제</h2>
+    <div class="design-cases">
+    <article class="design-case">
+    <h3>01. 많은 적의 길찾기 비용 공유</h3>
+    <p><strong>과제</strong> 같은 플레이어들을 추적하는 적마다 경로 탐색을 반복하면 비용이 커집니다.</p>
+    <p><strong>설계</strong> 다중 시작점 BFS로 흐름장을 공유하고, 높이를 가진 표면 그래프와 단방향 낙하 링크의 역방향 인접 목록으로 이동 가능성을 표현합니다.</p><a href="https://github.com/Hato-1998/FPSRoguelite-Portfolio/blob/main/docs/02-swarm-pathfinding.md">설계 상세 읽기 →</a>
+    </article>
+    <article class="design-case">
+    <h3>02. 실시간 상점의 거래 일관성</h3>
+    <p><strong>과제</strong> 전투 중 요청이 중복되거나 상품 상태가 바뀌어도 재화와 적용 결과가 일치해야 합니다.</p>
+    <p><strong>설계</strong> 서버에서 revision을 비교하고 재진입을 차단합니다. 비용을 먼저 차감한 뒤 적용 실패 시 환불하고, 개인 상점 상태는 소유자에게만 복제합니다.</p><a href="https://github.com/Hato-1998/FPSRoguelite-Portfolio/blob/main/docs/03-authoritative-shop.md">설계 상세 읽기 →</a>
+    </article>
+    <article class="design-case">
+    <h3>03. 카드와 무기의 확장 지점</h3>
+    <p><strong>과제</strong> 카드가 수치와 동작을 함께 바꿀 때 정의 데이터와 런타임 상태의 책임을 나눠야 합니다.</p>
+    <p><strong>설계</strong> DataAsset 정의와 무기 인스턴스를 분리합니다. 카드 효과를 다형적으로 적용하고, 상태 변경 시 계산 캐시를 무효화합니다.</p><a href="https://github.com/Hato-1998/FPSRoguelite-Portfolio/blob/main/docs/04-card-weapon-design.md">설계 상세 읽기 →</a>
+    </article>
     </div>
-  </main>
-
-  <footer>
-    <p>&copy; 2026 곽근오. 마지막 업데이트: 2026.08.</p>
-  </footer>
-
+    </section>
+    <section id="premises">
+    <h2>설계 전제</h2>
+    <ul class="design-list">
+    <li>일반 적은 경량 체력·풀링·공유 길찾기를 사용합니다. GAS 적용 범위는 플레이어·엘리트·보스로 나눕니다.</li>
+    <li>성장 선택은 코인 상점에서 처리하며 개인의 구매가 전체 게임을 멈추지 않도록 설계합니다.</li>
+    <li>판정과 재화 변경은 서버가 담당하고 클라이언트는 입력과 UI를 전달합니다.</li>
+    <li>동시 적 1,000은 설계상 최악 상한 목표입니다. 해당 규모의 FPS·네트워크 성능을 달성했다는 실측값은 제시하지 않습니다.</li>
+    </ul>
+    </section>
+    <section id="architecture">
+    <h2>구조 한눈에 보기</h2>
+    <ol class="architecture-flow">
+    <li><strong>입력·UI</strong><span>클라이언트에서 구매·게임플레이 요청</span>
+    </li>
+    <li><strong>서버 규칙</strong><span>소유 객체의 RPC를 통해 요청 검증과 상태 변경</span>
+    </li>
+    <li><strong>개인 상태와 월드</strong><span>PlayerState의 ASC·지갑, 월드 서브시스템의 카드·스폰·길찾기</span>
+    </li>
+    <li><strong>상태 전달</strong><span>복제 상태와 RepNotify를 통해 UI 갱신</span>
+    </li>
+    </ol>
+    <p class="source-note">DataAsset은 무기·카드·상점의 정의를 제공합니다. 위 순서는 책임과 상태 흐름을 요약한 개념도입니다.</p>
+    </section>
+    <section id="scope">
+    <h2>제작과 검증 범위</h2>
+    <p>생성형 AI를 개발 도구로 활용하며 설계 판단과 산출물 검토를 직접 수행합니다. Unreal Engine의 GAS·복제 시스템을 활용한 프로젝트이며, 엔진 기능 자체를 직접 제작한 기술로 소개하지 않습니다.</p>
+    <p>공개 자료에는 구조 설명과 다이어그램을 담았습니다. 소스 코드와 코드 발췌는 포함하지 않습니다. <a href="https://github.com/Hato-1998/FPSRoguelite-Portfolio/blob/main/docs/05-verification.md">검증 범위 보기</a>
+    </p>
+    </section>
+    <div class="breadcrumb breadcrumb-bottom"><a href="../portfolio.html">← 포트폴리오 목록</a>
+    </div>
+    </main>  <footer>
+    <p>&copy; 2026 곽근오. 마지막 업데이트: 2026.09.28.</p>
+    </footer>
   <script src="../assets/js/theme-toggle.js"></script>
 </body>
 </html>
