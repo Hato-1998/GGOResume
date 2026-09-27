@@ -44,11 +44,11 @@
     <p class="project-tagline">GAS 전투에서 입력·UI·체크포인트 저장까지 이어지는 RPG 구조</p>
     <p class="project-meta">개인 학습 프로젝트 · 2026.03 ~ 05 · Unreal Engine 5.7 · C++ · GAS</p><a class="portfolio-source" href="https://github.com/Hato-1998/UE5TopDownRPG-Portfolio">GitHub 구조·설계 포트폴리오 ↗</a>
     </article>
-    <nav class="project-nav" aria-label="프로젝트 목차"><a href="#overview">개요</a><a href="#work">담당 작업</a><a href="#process">핵심 설계</a><a href="#architecture">구조</a><a href="#troubleshooting">트러블슈팅</a><a href="#evidence">수치와 근거</a><a href="#limits">한계</a>
+    <nav class="project-nav" aria-label="프로젝트 목차"><a href="#overview">개요</a><a href="#work">담당 작업</a><a href="#process">핵심 설계</a><a href="#troubleshooting">트러블슈팅</a>
     </nav>
     <section id="overview">
     <h2>개요</h2>
-    <p>GAS 기반 전투와 캐릭터 성장, 스킬 메뉴, 체크포인트 저장을 연결한 탑다운 RPG입니다. Stephen Ulibarri의 <em>Unreal Engine 5 - Gameplay Ability System - Top Down RPG</em> 강의를 기반으로 학습하고, 저장·데이터·입력의 책임을 서브시스템과 컴포넌트로 분리했습니다.</p>
+    <p>GAS 기반 전투와 캐릭터 성장, 스킬 메뉴, 체크포인트 저장을 연결한 탑다운 RPG입니다.</p>
     <div class="project-demo"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/M6sWZnHQJJM" title="Aura RPG 플레이 데모" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><a href="https://youtu.be/M6sWZnHQJJM">플레이 영상 보기 ↗</a>
     </div>
     </section>
@@ -58,10 +58,9 @@
 <ul class="design-list">
     <li><strong>강의 기반 전투·성장 연결</strong> — GAS 전투, 속성·경험치·스킬 진행, HUD·성장 메뉴와 체크포인트를 학습하고 프로젝트에 연결했습니다.</li>
     <li><strong>저장 책임 분리</strong> — GameMode·Character에 흩어진 슬롯·진행·월드 저장 흐름을 SaveGameSubsystem으로 모으고, GUID 식별과 목적지 맵 검증을 추가했습니다.</li>
-    <li><strong>입력 기능 분리</strong> — 커서 타기팅·클릭 이동·마법진·피해 숫자를 4개 ActorComponent로 분리하고 PlayerController에 입력 조정 역할을 남겼습니다.</li>
+    <li><strong>입력 기능 분리</strong> — 커서 타기팅·클릭 이동·마법진·피해 숫자를 4개의 ActorComponent로 분리하고 PlayerController에 입력 조정 역할을 남겼습니다.</li>
     <li><strong>데이터와 화면 경계 정리</strong> — 공통 데이터 조회·캐싱을 GameDataSubsystem으로 모으고, HUD의 WidgetController와 로드 화면 MVVM의 역할을 나눴습니다.</li>
     </ul>
-    <p class="source-note">Stephen Ulibarri의 GAS Top Down RPG 강의가 기반입니다. 강의·엔진의 제공 기능과 저장·입력 책임을 분리한 작업을 구분하며 전체를 독자 개발한 시스템으로 소개하지 않습니다.</p>
     </section>
 
     <section id="process">
@@ -76,20 +75,20 @@
     <dt>초기화 경계</dt>
     <dd>서버 빙의 시점과 클라이언트의 PlayerState 수신 시점에서 Owner·Avatar 연결을 확인해야 합니다. 상태가 준비되기 전에 UI가 구독하면 최초 값이나 알림을 놓칠 수 있습니다.</dd>
     <dt>대가</dt>
-    <dd>태그·데이터·효과 간 연결이 늘어납니다. 계수 누락 시 기본값과 로그로 계속 동작하더라도 의도한 밸런스까지 보장하지는 않습니다.</dd>
+    <dd>태그·데이터·효과 간 연결이 늘어납니다. 계수 누락 시 로그를 남기고 기본값으로 계속 동작하더라도 의도한 밸런스까지 보장하지는 않습니다.</dd>
     </dl>
     </article>
     <article class="contribution-section">
     <h3>2. 저장 요청과 파일·월드 처리를 분리</h3>
     <dl class="case-record">
     <dt>변경 전</dt>
-    <dd>GameMode와 Character에 슬롯 처리, 진행 저장, 월드 직렬화, 맵 이동 흐름이 모여 있었습니다. 로드 화면과 플레이 중 저장이 같은 정책을 사용하기 어려웠습니다.</dd>
+    <dd>GameMode와 Character에 슬롯 처리, 진행 저장, 월드 직렬화, 맵 이동 흐름이 모여 있었습니다. 로드 화면에서의 저장과 플레이 중 저장에 같은 정책을 적용하기 어려웠습니다.</dd>
     <dt>변경 과정</dt>
-    <dd>슬롯 생성·조회·삭제와 진행 저장을 GameInstanceSubsystem으로 이동했습니다. SaveInterface 액터만 수집해 맵별 ID·이름·Transform·저장 속성을 기록합니다. 로드 시 ID 인덱스를 만들고 기존 월드 액터와 대응한 뒤 선택적 위치 복원, 역직렬화, 복원 콜백 순으로 처리합니다.</dd>
+    <dd>슬롯 생성·조회·삭제와 진행 저장을 GameInstanceSubsystem으로 이동했습니다. SaveInterface를 구현한 액터만 수집해 맵별 ID·이름·Transform·저장 속성을 기록합니다. 로드 시 ID 인덱스를 만들고 기존 월드 액터와 대응시킨 뒤 선택적 위치 복원, 역직렬화, 복원 콜백 순으로 처리합니다.</dd>
     <dt>호환 경로</dt>
     <dd>GUID 기반 매칭을 우선하고, ID가 없는 이전 저장 데이터에는 이름 조회를 남겼습니다. 위치를 복원할지는 액터가 인터페이스로 결정합니다.</dd>
     <dt>대가</dt>
-    <dd>GameMode의 저장 클래스·맵 목록 설정 의존은 남아 있습니다. 동기 파일 기록은 순서를 단순화하지만 저장량이 커지면 프레임을 멈출 수 있습니다.</dd>
+    <dd>GameMode의 저장 클래스·맵 목록 설정에 대한 의존성은 남아 있습니다. 동기 파일 기록은 순서를 단순화하지만 저장량이 커지면 프레임 처리가 일시적으로 멈출 수 있습니다.</dd>
     </dl>
     </article>
     <article class="contribution-section">
@@ -98,7 +97,7 @@
     <dt>변경 전</dt>
     <dd>한 Controller가 커서 Trace, 자동 이동, 마법진, 피해 숫자, 능력 입력까지 처리해 한 기능 수정의 영향 범위가 넓었습니다.</dd>
     <dt>변경 과정</dt>
-    <dd>클릭 이동·커서 대상·마법진·피해 숫자를 분리했습니다. Controller는 입력 상태와 대상에 따라 이동을 중단하거나 능력 입력을 전달합니다. 전투 HUD와 성장 메뉴는 WidgetController가 값·이벤트를 전달하고, 로드 화면 ViewModel은 슬롯 표시·선택을 관리합니다.</dd>
+    <dd>클릭 이동·커서 대상·마법진·피해 숫자를 분리했습니다. Controller는 입력 상태와 대상에 따라 이동을 중단하거나 능력 입력을 전달합니다. WidgetController는 전투 HUD와 성장 메뉴에 값·이벤트를 전달하고, 로드 화면 ViewModel은 슬롯 표시·선택을 관리합니다.</dd>
     <dt>저장 연결</dt>
     <dd>ViewModel은 파일을 직접 쓰지 않고 SaveGameSubsystem에 슬롯 작업과 이동을 요청합니다. 화면 표시와 저장 정책의 변경 위치를 구분했습니다.</dd>
     <dt>대가</dt>
@@ -116,23 +115,9 @@
     <li>현재 저장 경로는 동기 방식이며 기존 배치 액터의 상태를 복원합니다. 비동기 저장 큐나 일반적인 동적 액터 재생성 시스템으로 설명하지 않습니다.</li>
     </ul>
     </section>
-    <section id="architecture">
-    <h2>구조 한눈에 보기</h2>
-    <ol class="architecture-flow">
-    <li><strong>입력 의도</strong><span>Enhanced Input·GameplayTag를 PlayerController에서 조정</span>
-    </li>
-    <li><strong>전투·속성</strong><span>PlayerState의 ASC를 거쳐 스킬·효과·피해 계산 수행</span>
-    </li>
-    <li><strong>화면 반영</strong><span>AttributeSet 변경을 WidgetController가 HUD와 성장 메뉴에 전달</span>
-    </li>
-    <li><strong>진행 저장</strong><span>체크포인트·로드 화면이 SaveGameSubsystem을 통해 슬롯과 맵별 상태 관리</span>
-    </li>
-    </ol>
-    </section>
 
     <section id="troubleshooting">
     <h2>문제 발생 상황과 해결 과정</h2>
-<p class="source-note">저장 문제와 Controller 리팩토링은 원본 프로젝트의 작업 기록에 근거합니다. 당시 결과와 이번 문서의 정적 확인 범위를 구분했습니다.</p>
     <article class="contribution-section">
     <h3>1. 두 번째 던전에서 저장 후 재시작하면 진행이 초기화됨</h3>
     <dl class="case-record">
@@ -144,8 +129,6 @@
     <dd>맵 이동 직전에 같은 슬롯을 대상으로 여러 비동기 저장 호출이 겹쳐 저장 순서가 꼬일 수 있었습니다.</dd>
     <dt>수정</dt>
     <dd>핵심 저장을 동기 슬롯 기록으로 바꾸고 목적지 맵 등록 여부를 검증했습니다. 저장 흐름과 실패 로그를 SaveGameSubsystem에 모았습니다.</dd>
-    <dt>당시 결과와 한계</dt>
-    <dd>원본 작업 기록은 던전 이동과 재시작 후 진행 데이터 유지를 보고합니다. 이번 편집에서는 재실행하지 않았으며 재현 횟수·저장 시간·실패율 전후 수치는 기록에 없어 제시하지 않습니다.</dd>
     </dl>
     </article>
     <article class="contribution-section">
@@ -155,10 +138,8 @@
     <dd>저장 대상 액터를 이름만으로 대응시키면 에디터에서 이름이나 배치를 수정할 때 기존 저장과의 연결이 깨질 수 있습니다.</dd>
     <dt>설계 변경</dt>
     <dd>영속 GUID를 저장 식별자로 사용하고, 로드할 때 ID 인덱스를 먼저 구성합니다. ID가 없는 이전 데이터는 별도의 이름 기반 경로로 대응시킵니다.</dd>
-    <dt>확인할 결과</dt>
-    <dd>이름을 바꿔도 같은 GUID의 배치 액터에 상태가 적용되는지, ID 없는 이전 데이터가 이름 경로로 복원되는지 나눠 확인해야 합니다. ID 중복·누락은 따로 검사해야 합니다.</dd>
     <dt>한계</dt>
-    <dd>현재 월드에 존재하는 액터를 찾아 적용합니다. 임의의 동적 생성 액터를 전부 다시 만드는 범용 저장 기능은 아닙니다. 이 항목은 호환성 설계와 검증 조건이며 버그 재현 횟수는 제공하지 않습니다.</dd>
+    <dd>현재 월드에 존재하는 액터를 찾아 적용합니다. 임의의 동적 생성 액터를 전부 다시 만드는 범용 저장 기능은 아닙니다.</dd>
     </dl>
     </article>
     <article class="contribution-section">
@@ -170,89 +151,15 @@
     <dd>입력을 조정하는 역할과 실제 동작을 나눴습니다. 커서 타기팅·클릭 이동·마법진·피해 숫자를 각각 ActorComponent로 옮기고, Controller는 입력 이벤트를 받아 위임하도록 정리했습니다.</dd>
     <dt>구조에서 확인되는 결과</dt>
     <dd>입력 세부 동작의 변경 위치가 4개 컴포넌트로 나뉩니다. Controller는 대상 판독과 입력 상태에 따른 조정 책임을 유지합니다.</dd>
-    <dt>한계</dt>
-    <dd>분리 개수는 확인 가능하지만 작업 시간이나 결함률 감소를 측정한 수치는 없습니다. 컴포넌트 간 의존과 초기화 순서까지 사라진 것은 아닙니다.</dd>
     </dl>
     </article>
     </section>
 
-    <section id="evidence">
-    <h2>정량적으로 읽는 설계 결정</h2>
-<article class="contribution-section">
-    <h3>입력 기능의 분리 단위</h3>
-    <dl class="case-record">
-    <dt>수치·규칙</dt>
-    <dd>4개 ActorComponent: 클릭 이동, 커서 타기팅, 마법진, 피해 숫자.</dd>
-    <dt>판독 기준</dt>
-    <dd>클래스와 책임의 개수입니다. 변경 위치를 구분한 구조적 결과로 읽습니다.</dd>
-    <dt>한계</dt>
-    <dd>4개로 나눴다는 사실이 성능 향상이나 수정 시간 단축을 수치로 증명하지는 않습니다.</dd>
-    </dl>
-    </article>
-    <article class="contribution-section">
-    <h3>로드 화면 슬롯</h3>
-    <dl class="case-record">
-    <dt>수치·규칙</dt>
-    <dd>현재 로드 화면에 3개의 명명된 슬롯 필드.</dd>
-    <dt>판독 기준</dt>
-    <dd>UI의 구체적인 슬롯 구성을 확인한 값입니다. 저장 서비스의 보편적인 최대 용량이 아닙니다.</dd>
-    <dt>한계</dt>
-    <dd>4개 이상으로 확장하려면 서비스 설정뿐 아니라 ViewModel·화면 구성도 검토해야 합니다.</dd>
-    </dl>
-    </article>
-    <article class="contribution-section">
-    <h3>화면 연결 방식</h3>
-    <dl class="case-record">
-    <dt>수치·규칙</dt>
-    <dd>2가지: 전투·성장 화면의 WidgetController, 로드 화면의 MVVM.</dd>
-    <dt>판독 기준</dt>
-    <dd>같은 게임 상태를 표시하더라도 화면의 목적에 따라 연결 방식을 구분했습니다.</dd>
-    <dt>한계</dt>
-    <dd>프로젝트 전체 UI가 MVVM이라는 표현은 부정확합니다. 두 경로 각각의 초기값·구독·재진입 검증이 필요합니다.</dd>
-    </dl>
-    </article>
-    <article class="contribution-section">
-    <h3>저장 식별과 호환</h3>
-    <dl class="case-record">
-    <dt>수치·규칙</dt>
-    <dd>GUID 우선 매칭, ID 없는 이전 데이터의 이름 매칭이라는 2개 경로.</dd>
-    <dt>판독 기준</dt>
-    <dd>현재 데이터와 레거시 데이터의 복원 기준을 구분합니다.</dd>
-    <dt>한계</dt>
-    <dd>이름 경로는 이전 저장의 호환 수단입니다. 모든 이름 변경이나 중복 ID 문제를 자동 복구하지 않습니다.</dd>
-    </dl>
-    </article>
-    <article class="contribution-section">
-    <h3>저장 성능·안정성 수치</h3>
-    <dl class="case-record">
-    <dt>수치·규칙</dt>
-    <dd>핵심 저장은 동기 방식. 저장 지연·실패율 개선 수치는 미측정.</dd>
-    <dt>판독 기준</dt>
-    <dd>원본 기록의 진행 유지 결과와 재현 가능한 통계는 구분합니다.</dd>
-    <dt>한계</dt>
-    <dd>슬롯 크기, 저장 액터 수, 맵 전환 조건, 디스크 환경, 반복 횟수와 지연 분포가 있어야 정량 비교할 수 있습니다.</dd>
-    </dl>
-    </article>
-    </section>
-
-    <section id="limits">
-    <h2>알려진 한계와 검증 범위</h2>
-<ul class="design-list">
-    <li>저장은 동기 경로입니다. 비동기 작업 큐·원자적 파일 교체·임의의 동적 액터 재생성은 구현 범위로 주장하지 않습니다.</li>
-    <li>SaveGameSubsystem에는 GameMode 설정 의존이 남습니다. GameDataSubsystem의 최초 로드도 동기이며 설정 실패 시 GameMode 대체 경로를 확인해야 합니다.</li>
-    <li>GUID 유일성·기존 데이터 호환·복원 콜백 순서, UI 재진입·중복 구독, 서버·클라이언트 ASC 초기화는 각각 확인 대상입니다.</li>
-    <li>이번 페이지 업데이트에서는 원본 분석 문서와 공개 설계 자료를 대조했습니다. 빌드·PIE·패키징·성능 시험을 새로 실행하지 않았습니다.</li>
-    </ul>
-    </section>
-<section id="scope">
-    <h2>참고 자료와 공개 범위</h2>
-    <p>강의 기반 프로젝트의 구현과 현재 구조를 소개합니다. 강의와 엔진이 제공한 기반, 책임 분리와 저장 구조를 정리한 작업을 구분해 설명합니다.</p>
-    <p>공개 포트폴리오는 구조 설명과 다이어그램으로 구성되며 소스 코드와 코드 발췌는 포함하지 않습니다. <a href="https://github.com/Hato-1998/UE5TopDownRPG-Portfolio/blob/main/NOTICE.md">검토 기준과 공개 범위</a>
-    </p>
-    </section>
     <div class="breadcrumb breadcrumb-bottom"><a href="../portfolio.html">← 포트폴리오 목록</a>
     </div>
-    <p class="source-note">문제 해결 기록: <a href="https://github.com/Hato-1998/UE5TopDownRPG/blob/1f489ab7385920c76c3d870eaf12aca88389d325/Docs/Aura_Project_Portfolio_Analysis.md">원본 프로젝트 분석 문서의 Save/Load 및 Controller 사례</a>. 구조 기준: 2026.09.28 공개 설계 포트폴리오.</p></main>  <footer>
+    <p class="source-note">문제 해결 기록: <a href="https://github.com/Hato-1998/UE5TopDownRPG/blob/1f489ab7385920c76c3d870eaf12aca88389d325/Docs/Aura_Project_Portfolio_Analysis.md">원본 프로젝트 분석 문서의 Save/Load 및 Controller 사례</a>. 구조 기준: 2026.09.28 공개 설계 포트폴리오.</p>
+  </main>
+  <footer>
     <p>&copy; 2026 곽근오. 마지막 업데이트: 2026.09.28.</p>
     </footer>
   <script src="../assets/js/theme-toggle.js"></script>
