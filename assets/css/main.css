@@ -734,3 +734,17 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
   .design-portfolio section { margin: 2.25rem 0; }
   .design-portfolio .project-nav { gap: .7rem 1.1rem; }
 }
+
+/* 한 페이지 사례 설명: 과정, 근거, 한계를 동일한 읽기 순서로 표시 */
+.design-portfolio .contribution-section { padding: 1.5rem 0; border-bottom: 1px solid var(--border); }
+.design-portfolio .contribution-section h3 { font-size: 1.2rem; line-height: 1.5; word-break: keep-all; }
+.case-record { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: 1rem 1.5rem; }
+.case-record dt { color: var(--accent); font-size: .95rem; font-weight: 600; }
+.case-record dd { margin: 0; line-height: 1.85; word-break: keep-all; overflow-wrap: anywhere; }
+.design-portfolio section { scroll-margin-top: 1.5rem; }
+.design-portfolio section > p { margin-bottom: 1rem; }
+@media (max-width: 600px) {
+  .case-record { grid-template-columns: minmax(0, 1fr); gap: .35rem; }
+  .case-record dd { margin-bottom: 1.1rem; }
+  .design-portfolio .contribution-section { padding: 1rem 0; }
+}
