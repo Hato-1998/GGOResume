@@ -44,7 +44,7 @@
     <p class="project-tagline">오염된 픽셀 아케이드 세계를 되찾는 1~4인 협동 FPS 로그라이트 호드 슈터</p>
     <p class="project-meta">개인 프로젝트 · 2026.05 ~ 2026.10 공개 데모 · Unreal Engine 5.8 · C++ · GAS · 개발 코드명 FPSRoguelite</p><a class="portfolio-source" href="https://github.com/Hato-1998/FPSRoguelite-Portfolio">GitHub 구조·설계 포트폴리오 ↗</a>
     </article>
-    <nav class="project-nav" aria-label="프로젝트 목차"><a href="#overview">개요</a><a href="#work">담당 작업</a><a href="#process">핵심 설계</a><a href="#troubleshooting">트러블슈팅</a><a href="#evidence">검증 범위</a>
+    <nav class="project-nav" aria-label="프로젝트 목차"><a href="#overview">개요</a><a href="#work">담당 작업</a><a href="#process">핵심 설계</a><a href="#troubleshooting">트러블슈팅</a><a href="#ai">AI 협업</a><a href="#evidence">검증 범위</a>
     </nav>
     <section id="overview">
     <h2>개요</h2>
@@ -137,6 +137,33 @@
     </article>
     </section>
 
+    <section id="ai">
+    <h2>AI 협업 개발 방식</h2>
+<p class="source-note">구현의 상당 부분을 AI 에이전트가 맡았습니다. 아래는 그 결과물을 통제하고 검증한 방식입니다. 생산성은 측정 기록이 없어 수치로 주장하지 않습니다.</p>
+    <article class="contribution-section">
+    <h3>역할 분리와 위험도별 게이트</h3>
+    <dl class="case-record">
+    <dt>역할</dt>
+    <dd>게임 규칙·범위·통합·체감 판정은 본인이 결정합니다. 계획과 최종 검증은 상위 모델, 명세 범위 안의 구현은 구현 모델이 맡고, 독립 검토 모델은 지적만 제출합니다.</dd>
+    <dt>게이트</dt>
+    <dd>서버 권위·복제, 스웜 핫패스, 수명주기·소유권 구조를 바꾸는 고위험 변경에만 독립 계획 검토(G1)와 병합 전 적대 검토(G2)를 둡니다. 머지 차단 지적이 남으면 푸시하지 않습니다. 그 밖의 변경은 빌드·관련 시험·diff 검토로 마칩니다.</dd>
+    <dt>작업 명세</dt>
+    <dd>구현 담당, 허용 파일, 완료 조건, 인계 조건을 적습니다. 명세와 코드가 충돌하거나 명세에 없는 권한·복제 변경이 필요하거나 같은 실패가 두 번 반복되면 구현을 멈추고 상위 모델에 넘깁니다.</dd>
+    </dl>
+    </article>
+    <article class="contribution-section">
+    <h3>보고는 주장으로 보고 직접 검증</h3>
+    <dl class="case-record">
+    <dt>검증 규율</dt>
+    <dd>빌드는 종료 코드가 아니라 로그의 Result 줄로 판정합니다. 기존 실패 시험은 기준 커밋과 이름 단위로 대조해 새 실패 0건을 확인합니다. 인계 메모의 수식은 다시 계산하고, 동작과 외형은 직접 플레이로 확인합니다.</dd>
+    <dt>검토가 바꾼 결과</dt>
+    <dd>원격 투사체 설계에서 기존 순간이동 판정이 클라이언트 외삽과 양립하지 않는다는 지적을 받아 복제 비행 번호 방식으로 바꿨습니다. 무기 보상 미션은 보상이 지붕 위에 떨어지는 지적을 받아 가장 낮은 걷기 가능 바닥을 찾게 했습니다.</dd>
+    <dt>기록</dt>
+    <dd>결정 로그 190건, 구조 결정 문서 48건, 설계 토론 기록 129건을 남기고 새 계획 전에 먼저 조회합니다. 작업 보드에 착수를 클레임하고 완료 커밋으로 마감합니다.</dd>
+    </dl>
+    </article>
+    </section>
+
     <section id="evidence">
     <h2>검증 범위</h2>
 <article class="contribution-section">
@@ -153,7 +180,7 @@
     </section>
     <div class="breadcrumb breadcrumb-bottom"><a href="../portfolio.html">← 포트폴리오 목록</a>
     </div>
-    <p class="source-note">구조·수치·검증 조건은 <a href="https://github.com/Hato-1998/FPSRoguelite-Portfolio">공개 설계 포트폴리오</a>의 공유 길찾기, 구역 복구, 무기 성장, 관전, 검증 문서를 기준으로 정리했습니다.</p>
+    <p class="source-note">구조·수치·검증 조건은 <a href="https://github.com/Hato-1998/FPSRoguelite-Portfolio">공개 설계 포트폴리오</a>의 공유 길찾기, 구역 복구, 무기 성장, 관전, AI 협업, 검증 문서를 기준으로 정리했습니다.</p>
   </main>
   <footer>
     <p>&copy; 2026 곽근오. 마지막 업데이트: 2026.10.23.</p>
